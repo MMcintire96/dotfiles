@@ -1,17 +1,14 @@
-
-
 "Using vundle"
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'flazz/vim-colorschemes'
-call vundle#end()
-filetype plugin indent on
-
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+"Plugin 'VundleVim/Vundle.vim'
+"Plugin 'flazz/vim-colorschemes'
+"call vundle#end()
+"filetype plugin indent on
 
 "Who likes swap files?
 set noswapfile
-
+colorscheme custom
 
 "make into a real editor
 syntax on
