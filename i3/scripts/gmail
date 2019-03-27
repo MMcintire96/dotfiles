@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ $BLOCK_BUTTON ]]; then
+    cmd=$(google-chrome gmail.com)
+fi
+
+echo ""

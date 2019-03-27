@@ -13,7 +13,7 @@ let g:colors_name = "custom"
 "hi CTagsMember -- no settings --
 "hi CTagsGlobalConstant -- no settings --
 "hi Ignore -- no settings --
-hi Normal guifg=#ffffff guibg=#000000 guisp=#000000 gui=NONE ctermfg=252 ctermbg=NONE cterm=NONE
+hi Normal guifg=#ffffff guibg=#000000 guisp=#000000 gui=NONE ctermfg=252 ctermbg=None cterm=NONE
 "hi CTagsImport -- no settings --
 "hi CTagsGlobalVariable -- no settings --
 "hi EnumerationValue -- no settings --
@@ -32,7 +32,7 @@ hi Typedef guifg=#738fc7 guibg=NONE guisp=NONE gui=bold ctermfg=110 ctermbg=NONE
 hi Title guifg=#f9f9ff guibg=#192224 guisp=#192224 gui=bold ctermfg=189 ctermbg=235 cterm=bold
 hi Folded guifg=#405158 guibg=#A1A6A8 guisp=#A1A6A8 gui=italic ctermfg=240 ctermbg=248 cterm=NONE
 hi PreCondit guifg=#f0c000 guibg=NONE guisp=NONE gui=NONE ctermfg=220 ctermbg=NONE cterm=NONE
-hi Include guifg=#f0c000 guibg=NONE guisp=NONE gui=NONE ctermfg=39 ctermbg=NONE cterm=NONE
+hi Include guifg=#f0c000 guibg=NONE guisp=NONE gui=NONE ctermfg=12 ctermbg=NONE cterm=NONE
 hi TabLineSel guifg=#405158 guibg=#BD9800 guisp=#BD9800 gui=bold ctermfg=240 ctermbg=1 cterm=bold
 hi StatusLineNC guifg=#405158 guibg=#5E6C70 guisp=#5E6C70 gui=bold ctermfg=240 ctermbg=66 cterm=bold
 hi NonText guifg=#8ca0a6 guibg=NONE guisp=NONE gui=italic ctermfg=109 ctermbg=NONE cterm=NONE
@@ -46,7 +46,7 @@ hi Conditional guifg=#f0c000 guibg=NONE guisp=NONE gui=bold ctermfg=11 ctermbg=N
 hi StorageClass guifg=#738fc7 guibg=NONE guisp=NONE gui=bold ctermfg=110 ctermbg=NONE cterm=bold
 hi Todo guifg=#f9f9ff guibg=#BD9800 guisp=#BD9800 gui=NONE ctermfg=10 ctermbg=8 cterm=NONE
 hi Special guifg=#f0c000 guibg=NONE guisp=NONE gui=NONE ctermfg=110 ctermbg=NONE cterm=NONE
-hi LineNr guifg=#00aeff guibg=NONE guisp=NONE gui=NONE ctermfg=39 ctermbg=NONE cterm=NONE
+hi LineNr guifg=#00aeff guibg=NONE guisp=NONE gui=NONE ctermfg=6 ctermbg=NONE cterm=NONE
 hi StatusLine guifg=#405158 guibg=#BD9800 guisp=#BD9800 gui=bold ctermfg=240 ctermbg=1 cterm=bold
 hi Label guifg=#f0c000 guibg=NONE guisp=NONE gui=bold ctermfg=220 ctermbg=NONE cterm=bold
 hi PMenuSel guifg=#405158 guibg=#BD9800 guisp=#BD9800 gui=NONE ctermfg=240 ctermbg=1 cterm=NONE
@@ -65,10 +65,10 @@ hi TabLineFill guifg=#405158 guibg=#5E6C70 guisp=#5E6C70 gui=bold ctermfg=240 ct
 hi WarningMsg guifg=#d6dddf guibg=#912C00 guisp=#912C00 gui=NONE ctermfg=152 ctermbg=88 cterm=NONE
 hi VisualNOS guifg=#405158 guibg=#F9F9FF guisp=#F9F9FF gui=underline ctermfg=240 ctermbg=189 cterm=underline
 hi DiffDelete guifg=NONE guibg=#192224 guisp=#192224 gui=NONE ctermfg=NONE ctermbg=235 cterm=NONE
-hi ModeMsg guifg=#ffffff guibg=#192224 guisp=#192224 gui=bold ctermfg=15 ctermbg=235 cterm=bold
+hi ModeMsg guifg=#ffffff guibg=#192224 guisp=#192224 gui=bold ctermfg=15 ctermbg=black cterm=bold
 hi CursorColumn guifg=NONE guibg=#222E30 guisp=#222E30 gui=NONE ctermfg=NONE ctermbg=236 cterm=NONE
 hi Define guifg=#f0c000 guibg=NONE guisp=NONE gui=NONE ctermfg=11 ctermbg=NONE cterm=NONE
-hi Function guifg=#00ffff guibg=NONE guisp=NONE gui=bold ctermfg=14 ctermbg=NONE cterm=NONE
+hi Function guifg=#00ffff guibg=NONE guisp=NONE gui=bold ctermfg=39 ctermbg=NONE cterm=NONE
 hi FoldColumn guifg=#405158 guibg=#A1A6A8 guisp=#A1A6A8 gui=italic ctermfg=240 ctermbg=248 cterm=NONE
 hi PreProc guifg=#ff6060 guibg=NONE guisp=NONE gui=NONE ctermfg=9 ctermbg=NONE cterm=NONE
 hi Visual guifg=#405158 guibg=#F9F9FF guisp=#F9F9FF gui=NONE ctermfg=15 ctermbg=12 cterm=NONE

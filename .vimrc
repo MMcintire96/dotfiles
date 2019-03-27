@@ -1,13 +1,5 @@
-set nocompatible
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-call vundle#end()
 filetype plugin indent on
 syntax on
-let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
-let g:pydiction_menu_height = 3
 
 "Who likes swap files?
 set noswapfile
@@ -18,7 +10,20 @@ colorscheme custom
 " remove trailing whitespaces on :w
 autocmd BufWritePre * %s/\s\+$//e
 
-"make into a real edito
+" add paste toggle
+set pastetoggle=<F2>
+
+
+" fix bad splits with ctrl hjkl
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+set splitbelow
+set splitright
+
+"make into a real editor
 syntax on
 syntax enable
 set autoindent
