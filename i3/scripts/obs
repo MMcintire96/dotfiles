@@ -1,0 +1,22 @@
+#!/bin/bash
+
+headers="Client-ID: "
+u_id="70303504"
+api_base="https://api.twitch.tv/helix"
+
+s_status="curl -H '$headers' -X GET $api_base/streams?user_id=$u_id"
+stream_status=$(echo $(eval $s_status) |jq '.data' |jq '.[].type' |tr -d '"')
+
+if [[ $stream_status == "live" ]]; then
+    s_follower="curl -H '$headers' -X GET $api_base/users/follows?to_id=$u_id&first=100"
+    first_follower=$(echo $(eval $s_follower) |jq '.data' |jq '.[0].from_name' |tr -d '"')
+    viewer_count=$(echo $(eval $s_status) |jq '.data' |jq '.[].viewer_count' )
+    echo  $first_follower
+else
+    echo  Go Live
+fi
+
+
+
+
+
