@@ -1,0 +1,4 @@
+#!/bin/bash
+
+temp=$(curl -s wttr.in/?format="%t")
+echo  $temp

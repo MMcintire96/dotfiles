@@ -1,0 +1,14 @@
+vol=$(pulsemixer --get-volume | awk '{print $1}')
+
+if [ "$vol" -gt "70" ]; then
+	icon=
+elif [ "$vol" -lt "50" ]; then
+	icon=
+else
+	icon=
+fi
+
+[ "$(pulsemixer --get-mute)" = "1" ] && icon=
+
+str="$icon $vol%"
+echo $str

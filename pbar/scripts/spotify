@@ -1,0 +1,49 @@
+#!/bin/bash
+
+players="playerctl -l | grep spotify"
+player_status="playerctl --player=spotify status"
+
+track_type="playerctl --player=spotify metadata --format {{mpris:trackid}} | cut -d ':' -f 2"
+
+artist="playerctl --player=spotify metadata --format {{artist}}"
+title="playerctl --player=spotify metadata --format {{title}}"
+
+
+get_sink_num() {
+	LANGUAGE="en_US"
+	app_name="spotify"
+	current_sink_num=
+	sink_num_check=
+	app_name_check=
+	pactl list sink-inputs |while read line; do \
+		sink_num_check=$(echo "$line" |sed -rn 's/^Sink Input #(.*)/\1/p')
+		if [ "$sink_num_check" != "" ]; then
+			current_sink_num="$sink_num_check"
+		else
+			app_name_check=$(echo "$line" \
+				|sed -rn 's/application.name = "([^"]*)"/\1/p')
+				if [ "$app_name_check" = "$app_name" ]; then
+					return $current_sink_num
+				fi
+		fi
+	done
+}
+
+#hack or bad code?
+get_sink_num
+sink_num=$?
+
+if [[ $(eval $players) == "spotify" ]]; then
+    if [ $(eval $track_type) == "track" ] && [ $(eval $player_status) == "Paused" ]; then
+        echo 
+    elif [ $(eval $track_type) == "track" ] && [ $(eval $player_status) == "Playing" ]; then
+        echo  $(eval $title) by $(eval $artist)
+        eval pactl set-sink-input-mute "$sink_num" 0
+    elif [ $(eval $track_type) == "ad" ]; then
+        echo  Muting Ad
+        eval pactl set-sink-input-mute "$sink_num" 1
+   fi
+else
+    echo 
+fi
+
