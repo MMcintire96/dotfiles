@@ -1,7 +1,7 @@
 filetype plugin indent on
 syntax on
 
-set packpath=~/.dotfiles/vim/
+"set packpath=~/.dotfiles/vim/
 
 "Who likes swap files?
 set noswapfile
