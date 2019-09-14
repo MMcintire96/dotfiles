@@ -1,13 +1,12 @@
 filetype plugin indent on
 syntax on
 
-"set packpath=~/.dotfiles/vim/pack/
-
 "Who likes swap files?
 set noswapfile
 
 " custom color scheme
 colorscheme custom
+set t_Co=256
 
 " remove trailing whitespaces on :w
 autocmd BufWritePre * %s/\s\+$//e
@@ -45,4 +44,6 @@ noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
+
+
 
