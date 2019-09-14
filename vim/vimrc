@@ -1,6 +1,8 @@
 filetype plugin indent on
 syntax on
 
+set packpath=~/.dotfiles/vim/
+
 "Who likes swap files?
 set noswapfile
 
@@ -43,3 +45,4 @@ noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
+
