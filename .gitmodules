@@ -10,6 +10,9 @@
 [submodule "vim/pack/all/start/vimux"]
 	path = vim/pack/all/start/vimux
 	url = https://github.com/benmills/vimux.git
-[submodule "vim/pack/all/start/vimux"]
-	path = vim/pack/all/start/vimux
-	url = https://github.com/benmills/vimux.git
+[submodule "vim/pack/all/start/nerdtree"]
+	path = vim/pack/all/start/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "vim/pack/all/start/vim-fugitive"]
+	path = vim/pack/all/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
