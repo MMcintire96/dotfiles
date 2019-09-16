@@ -102,7 +102,9 @@ let g:ctrlp_map='<leader>t'
 
 
 " Vimux settings
-let g:VimuxOrientation = "h"
-let g:VimuxHeight = "40"
-map <Leader>vp :VimuxPromptCommand<CR>
+let g:VimuxOrientation = "v"
+let g:VimuxHeight = "20"
+map <Leader>vb :VimuxRunCommand("clear;rspec " . buffname("%"))<CR>
+map <Leader>vc :VimuxPromptCommand<CR>
 map <Leader>\ :VimuxRunLastCommand<CR>
+map <Leader>vx :VimuxCloseRunner<CR>
