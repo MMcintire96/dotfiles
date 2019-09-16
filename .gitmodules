@@ -4,3 +4,12 @@
 [submodule "vim/pack/all/start/vim-airline"]
 	path = vim/pack/all/start/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
+[submodule "vim/pack/all/start/vim-airline-themes"]
+	path = vim/pack/all/start/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
+[submodule "vim/pack/all/start/vimux"]
+	path = vim/pack/all/start/vimux
+	url = https://github.com/benmills/vimux.git
+[submodule "vim/pack/all/start/vimux"]
+	path = vim/pack/all/start/vimux
+	url = https://github.com/benmills/vimux.git
