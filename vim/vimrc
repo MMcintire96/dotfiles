@@ -46,4 +46,26 @@ noremap <Left> <Nop>
 noremap <Right> <Nop>
 
 
+" IDE like features for ALE
+if v:version >= 800
+  " Format when we save
+  let g:ale_fix_on_save = 1
+  let g:ale_lint_on_enter = 1
+  let g:ale_completion_enabled = 1
+  let g:ale_echo_msg_format = '[%linter%] %s'
+  let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
 
+  nnoremap <silent> K :ALEHover<CR>
+  nnoremap <silent> gd :ALEGoToDefinition<CR>
+
+  " show type on hover
+  if v:version >= 801
+    set balloonevalterm
+    let g:ale_set_balloons = 1
+  endif
+endif
+
+
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
+let g:ale_sign_column_always = 1

@@ -98,3 +98,9 @@ hi Underlined guifg=#f9f9ff guibg=#192224 guisp=#192224 gui=underline ctermfg=18
 hi DiffAdd guifg=NONE guibg=#193224 guisp=#193224 gui=NONE ctermfg=NONE ctermbg=236 cterm=NONE
 hi TabLine guifg=#405158 guibg=#5E6C70 guisp=#5E6C70 gui=bold ctermfg=240 ctermbg=66 cterm=bold
 hi cursorim guifg=#405158 guibg=#536991 guisp=#536991 gui=NONE ctermfg=240 ctermbg=60 cterm=NONE
+
+highlight Pmenu  ctermfg=15 ctermbg=8  guibg=8
+highlight PmenuSel ctermfg=0 ctermbg=14 guibg=14
+highlight PmenuSbar ctermbg=8 guibg=8
+highlight PmenuThumb ctermbg=14 guibg=14
+
