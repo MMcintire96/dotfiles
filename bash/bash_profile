@@ -13,8 +13,8 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # Setting Path for Sublime Text 3
-export PATH=/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$PATH
-export EDITOR='subl -w'
+export PATH=/usr/local/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export EDITOR='vim'
 
 
 
