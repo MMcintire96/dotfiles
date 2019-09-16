@@ -10,7 +10,8 @@ syntax enable
 
 " Special binds
 set pastetoggle=<F2>
-
+onoremap - `
+onoremap ` -
 
 " Vim splits
 set splitbelow
@@ -70,6 +71,7 @@ let g:airline_powerline_fonts=1
 let g:material_terminal_italics = 1
 let g:material_theme_style = 'default'
 colorscheme material
+"This breaks in urxvt!!
 if (has('termguicolors'))
   set termguicolors
 endif
