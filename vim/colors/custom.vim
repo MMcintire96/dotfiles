@@ -26,7 +26,7 @@ hi Normal guifg=#ffffff guibg=#000000 guisp=#000000 gui=NONE ctermfg=252 ctermbg
 "hi clear -- no settings --
 hi IncSearch guifg=#405158 guibg=#BD9800 guisp=#BD9800 gui=NONE ctermfg=240 ctermbg=1 cterm=NONE
 hi WildMenu guifg=NONE guibg=#A1A6A8 guisp=#A1A6A8 gui=NONE ctermfg=NONE ctermbg=248 cterm=NONE
-hi SignColumn guifg=#405158 guibg=#536991 guisp=#536991 gui=NONE ctermfg=240 ctermbg=60 cterm=NONE
+hi SignColumn guifg=#ffffff guibg=#000000 guisp=#000000 gui=NONE ctermfg=252 ctermbg=NONE cterm=NONE
 hi SpecialComment guifg=#f0c000 guibg=NONE guisp=NONE gui=NONE ctermfg=220 ctermbg=NONE cterm=NONE
 hi Typedef guifg=#738fc7 guibg=NONE guisp=NONE gui=bold ctermfg=110 ctermbg=NONE cterm=bold
 hi Title guifg=#f9f9ff guibg=#192224 guisp=#192224 gui=bold ctermfg=189 ctermbg=235 cterm=bold
@@ -99,8 +99,8 @@ hi DiffAdd guifg=NONE guibg=#193224 guisp=#193224 gui=NONE ctermfg=NONE ctermbg=
 hi TabLine guifg=#405158 guibg=#5E6C70 guisp=#5E6C70 gui=bold ctermfg=240 ctermbg=66 cterm=bold
 hi cursorim guifg=#405158 guibg=#536991 guisp=#536991 gui=NONE ctermfg=240 ctermbg=60 cterm=NONE
 
-highlight Pmenu  ctermfg=15 ctermbg=8  guibg=8
-highlight PmenuSel ctermfg=0 ctermbg=14 guibg=14
-highlight PmenuSbar ctermbg=8 guibg=8
-highlight PmenuThumb ctermbg=14 guibg=14
+highlight Pmenu  ctermfg=white ctermbg=grey  guibg=grey
+highlight PmenuSel ctermfg=black ctermbg=cyan guibg=cyan
+highlight PmenuSbar ctermbg=grey guibg=grey
+highlight PmenuThumb ctermbg=cyan guibg=cyan
 

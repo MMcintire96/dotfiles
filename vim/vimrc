@@ -1,71 +1,108 @@
+" High level fixes
+set noerrorbells
+set nocompatible
+set noswapfile
+set hidden
 filetype plugin indent on
 syntax on
+syntax enable
 
-"Who likes swap files?
-set noswapfile
 
-" custom color scheme
-colorscheme custom
-set t_Co=256
-
-" remove trailing whitespaces on :w
-autocmd BufWritePre * %s/\s\+$//e
-
-" add paste toggle
+" Special binds
 set pastetoggle=<F2>
 
 
-" fix bad splits with ctrl hjkl
+" Vim splits
+set splitbelow
+set splitright
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-set splitbelow
-set splitright
 
-"make into a real editor
-syntax on
-syntax enable
-set autoindent
+" formatting
 set tabstop=4
-set softtabstop=4 expandtab
+set softtabstop=4
 set shiftwidth=4
 set expandtab
-set ai
+set modelines=0
+set backspace=indent,eol,start
+set autoindent
+
+" cmd and mode
+set showcmd
+set showmode
+
+" numbers and lines
 set number
-set hlsearch
 set ruler
 set wrap!
-highlight Comment ctermfg=green
 
-"make into vim
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
+"read and writing
+set encoding=utf-8
+set autowrite
+set autoread
+set ttyfast
 
+" searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+
+
+
+" Vim airline disabled for now
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:loaded_airline = 1
+let g:airline_extensions = []
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline_theme='violet'
+let g:airline_powerline_fonts=1
+
+
+" Color sceme
+let g:material_terminal_italics = 1
+let g:material_theme_style = 'default'
+colorscheme material
+if (has('termguicolors'))
+  set termguicolors
+endif
 
 " IDE like features for ALE
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = 'X'
+let g:ale_sign_warning = '-'
+let g:ale_set_highlights = 0
 if v:version >= 800
-  " Format when we save
   let g:ale_fix_on_save = 1
   let g:ale_lint_on_enter = 1
   let g:ale_completion_enabled = 1
   let g:ale_echo_msg_format = '[%linter%] %s'
   let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
-
   nnoremap <silent> K :ALEHover<CR>
   nnoremap <silent> gd :ALEGoToDefinition<CR>
-
-  " show type on hover
   if v:version >= 801
     set balloonevalterm
     let g:ale_set_balloons = 1
   endif
 endif
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight ALEWarningSign ctermbg=NONE ctermfg=yellow guibg=NONE
 
 
-highlight clear ALEErrorSign
-highlight clear ALEWarningSign
-let g:ale_sign_column_always = 1
+
+"ctrl p
+let g:ctrlp_map='<leader>t'
+
+
+" Vimux settings
+let g:VimuxOrientation = "h"
+let g:VimuxHeight = "40"
+map <Leader>vp :VimuxPromptCommand<CR>
+map <Leader>\ :VimuxRunLastCommand<CR>
