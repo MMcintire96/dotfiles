@@ -394,7 +394,10 @@ if has('nvim')
 endif
 
 hi Normal guibg=NONE ctermbg=NONE
-hi LineNr ctermfg=13 ctermbg=NONE guifg=#ff00ff guibg=NONE
+hi LineNr ctermfg=97 ctermbg=NONE guifg=#875faf guibg=NONE
 hi SignColumn guibg=NONE ctermbg=NONE
 highlight clear Comment
-highlight Comment ctermfg=107 ctermbg=NONE guifg=#87af00 guibg=NONE
+highlight Comment ctermfg=107 ctermbg=NONE guifg=#87af5f guibg=NONE
+highlight TabLine ctermbg=NONE ctermfg=white guifg=#ffffff guibg=#262626
+highlight TabLineSel ctermbg=NONE ctermfg=white guifg=#ffffff guibg=#875faf
+highlight TabLineFill ctermbg=NONE ctermfg=NONE guifg=#262626 guibg=#262626

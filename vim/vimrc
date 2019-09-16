@@ -32,11 +32,12 @@ set backspace=indent,eol,start
 set autoindent
 
 " cmd and mode
-set showcmd
-set showmode
+set noshowcmd
+set noshowmode
+set shortmess+=F
 
 " numbers and lines
-set number
+set number relativenumber
 set ruler
 set wrap!
 
@@ -56,15 +57,18 @@ set smartcase
 
 
 " Vim airline disabled for now
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
+let g:airline_symbols = {}
 
-let g:loaded_airline = 1
+let g:loaded_airline = 0
 let g:airline_extensions = []
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline_theme='violet'
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts=0
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.maxlinenr = ''
+let g:airline#extensions#ale#enabled = 1
 
 
 " Color sceme
@@ -100,8 +104,13 @@ highlight ALEWarningSign ctermbg=NONE ctermfg=yellow guibg=NONE
 
 
 "ctrl p
-let g:ctrlp_map='<leader>t'
+"let g:ctrlp_map='<leader>t'
 
+"nerdtree
+map <Leader>t :NERDTreeToggle<CR>
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDTreeWinSize = 25
 
 " Vimux settings
 let g:VimuxOrientation = "v"
