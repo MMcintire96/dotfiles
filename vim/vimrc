@@ -22,17 +22,17 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 
-autocmd FILETYPE java setlocal ts=2 sw=2 st=2 expandtab
 
 " formatting
-"set tabstop=4
-"set softtabstop=4
-"set shiftwidth=4
-"set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
 set modelines=0
 set backspace=indent,eol,start
 set autoindent
 
+autocmd FILETYPE java setlocal ts=2 sw=2 st=2 expandtab
 " cmd and mode
 set noshowcmd
 set noshowmode
