@@ -10,8 +10,8 @@ syntax enable
 
 " Special binds
 set pastetoggle=<F2>
-onoremap - `
-onoremap ` -
+noremap - `
+noremap ` -
 
 " Vim splits
 set splitbelow
@@ -32,7 +32,8 @@ set modelines=0
 set backspace=indent,eol,start
 set autoindent
 
-autocmd FILETYPE java setlocal ts=2 sw=2 st=2 expandtab
+autocmd FileType java setlocal ts=2 sts=2 sw=2
+
 " cmd and mode
 set noshowcmd
 set noshowmode
