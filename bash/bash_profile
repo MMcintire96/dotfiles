@@ -16,5 +16,5 @@ fi
 export PATH=/usr/local/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$PATH
 export EDITOR='vim'
 
-
-
+#alias g++='/usr/local/bin/g++-9'
+#alias make='/usr/local/bin/gmake'
