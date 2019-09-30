@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#cade no sudo???
+hosts=(home mbp bespoke chrisk quentinrow)
+
+for i in ${hosts[@]}; do
+    printf "\nUpdating $(tput setaf 2)$i\n$(tput sgr0)"
+    ssh -o ConnectTimeout=5 $i 'bash -s' <~/dotfiles/install-dotfiles
+done;
