@@ -108,7 +108,7 @@ if v:version >= 800
   let g:ale_echo_msg_format = '[%linter%] %s'
   let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
   "javac classpath sucks
-  let g:ale_java_javac_classpath = prefix.'/Desktop/cs2420/java/jar_dir/components.jar:'.prefix.'/Desktop/cs2420/java/junit_dir/junit-4.12.jar:'.prefix.'/Desktop/cs2420/java/Assignment05-SortingAnalysis/src/'
+  let g:ale_java_javac_classpath = prefix.'/Desktop/cs2420/java/jar_dir/components.jar:'.prefix.'/Desktop/cs2420/java/junit_dir/junit-4.12.jar:'.prefix.'/Desktop/cs2420/java/lab07/src'
   nnoremap <silent> K :ALEHover<CR>
   nnoremap <silent> gd :ALEGoToDefinition<CR>
   if v:version >= 801
