@@ -1,0 +1,122 @@
+
+!*foreground: 			White
+!*cursorColor: 			White
+!*highlightTextColor:    #383c4a
+!*highlightColor: 		#c1ddff
+!! black
+!*.color0:       		#000000
+!*.color8:       		#555555
+!! red
+!*.color1:       		#AA0000
+!*.color9:       		#FF5555
+!! green
+!*.color2:       		#00AA00
+!*.color10:      		#55FF55
+!! yellow
+!*.color3:       		#AA5500
+!*.color11:      		#FFFF55
+!! blue
+!*.color4:       		#0000AA
+!*.color12:      		#5555FF
+!! magenta
+!*.color5:       		#AA00AA
+!*.color13:      		#FF55FF
+!! cyan
+!*.color6:       		#00AAAA
+!*.color14:      		#55FFFF
+!! white
+!*.color7:       		#AAAAAA
+!*.color15:      		#FFFFFF
+
+!
+!
+!Material nomral
+!
+*.foreground:  #f1f1f1
+*.background:  #eaeaea
+*.cursorColor: #16afca
+!
+! Black
+*.color0:      #212121
+*.color8:      #424242
+!
+! Red
+*.color1:      #b7141f
+*.color9:      #e83b3f
+!
+! Green
+*.color2:      #457b24
+*.color10:     #7aba3a
+!
+! Yellow
+*.color3:      #f6981e
+*.color11:     #ffea2e
+!
+! Blue
+*.color4:      #134eb2
+*.color12:     #54a4f3
+!
+! Magenta
+*.color5:      #560088
+*.color13:     #aa4dbc
+!
+! Cyan
+*.color6:      #0e717c
+*.color14:     #26bbd1
+!
+! White
+*.color7:      #efefef
+*.color15:     #d9d9d9
+!
+! Bold, Italic, Underline
+*.colorBD:     #b7141f
+!*.colorIT:
+!*.colorUL:
+!
+!
+
+
+!dark = #263238
+!palenight = #292d3e
+!darker = #212121
+!ocean = #0f111a
+!light = #fafafa
+
+!
+!URxvt------------------------
+!URxvt.font: xft:Roboto Mono-Regular:pixelsize=13,
+URxvt*font:  xft:Roboto Mono-Regular:pixelsize=13,
+URxvt*boldFont: xft:Roboto Mono-Regular:bold:pixelsize=13
+URxvt*letterSpace: 0
+!urxvt.boldFont: xft:Roboto Mono-Regular:bold:pixelsize=13:
+!URxvt*letterSpace: 1
+!Xft*antialias: 		true
+!XTerm*Term: xterm-256color
+URxvt*termName: xterm-256color
+URxvt*loginShell:  true
+urxvt*scrollBar: 		false
+URxvt*saveLines:  65535
+urxvt*matcher.button: 		1
+urxvt.transparent: 		true
+urxvt.shading:			30
+urxvt*depth: 			32
+urxvt*thickness:    100
+Xft*dpi: 			96
+Xft*hinting: 			true
+Xft*hintstyle: 			hintfull
+!URxvt*background: 	  [100]#212121
+URxvt*background: 	  [100]#262626
+
+Xft*rgba: 			rgb
+*internalBorder: 		5
+URxvt*fading: 			10
+!URxvt*tintColor: 		#000000
+!URxvt*shading: 			0
+URxvt*inheritPixmap: 		false
+URxvt*scrollWithBuffer: false
+
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+URxvt.keysym.C-v: eval: paste_clipboard
+URxvt.keysym.C-c: eval: selection_to_clipboard
