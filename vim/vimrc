@@ -37,6 +37,7 @@ autocmd FileType htmldjango setlocal ts=2 sts=2 sw=2
 autocmd FileType html setlocal ts=2 sts=2 sw=2
 autocmd FileType cpp setlocal ts=2 sts=2 sw=2
 autocmd FileType c setlocal ts=2 sts=2 sw=2
+autocmd FileType python setlocal ts=4 sts=4 sw=4
 
 " cmd and mode
 set noshowcmd
@@ -106,7 +107,7 @@ if v:version >= 800
   let g:ale_echo_msg_format = '[%linter%] %s'
   let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
   "javac classpath sucks
-  let g:ale_java_javac_classpath = prefix.'/Desktop/cs2420/java/jar_dir/components.jar:'.prefix.'/Desktop/cs2420/java/junit_dir/junit-4.12.jar:'.prefix.'/Desktop/cs2420/java/Lab12-graphs/src'
+  let g:ale_java_javac_classpath = prefix.'/Desktop/cs2420/java/jar_dir/components.jar:'.prefix.'/Desktop/cs2420/java/junit_dir/junit-4.12.jar:'.prefix.'/Desktop/cs2420/java/Assignment10-Pacman/src'
   nnoremap <silent> K :ALEHover<CR>
   nnoremap <silent> gd :ALEGoToDefinition<CR>
   if v:version >= 801
