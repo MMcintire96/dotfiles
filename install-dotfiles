@@ -82,7 +82,7 @@ mirrorfiles() {
     link "bash/bashrc"       ".bashrc"
     link "bash/profile"       ".profile"
     link "bash/bash_profile" ".bash_profile"
-    link "zsh/zshr"          ".zshrc"
+    link "zsh/zshrc"          ".zshrc"
     #link "input/inputrc"      ".inputrc"
     #link "git/gitattributes"  ".gitattributes"
     link "git/gitignore"      ".gitignore"
