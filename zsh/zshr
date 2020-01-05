@@ -1,0 +1,7 @@
+PROMPT="%F{207}%n%f%F{white}@%f%F{69}%m%f%F{white}:%f%F{cyan}[%f%F{cyan}%~%f%F{cyan}]%f %F{141}➜%f%b "
+
+alias pip="pip3"
+alias python="python3"
+
+zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'
+
