@@ -1,7 +1,37 @@
-PROMPT="%F{207}%n%f%F{white}@%f%F{69}%m%f%F{white}:%f%F{cyan}[%f%F{cyan}%~%f%F{cyan}]%f %F{141}➜%f%b "
+#old prompt from bash
+#PROMPT="%F{207}%n%f%F{white}@%f%F{69}%m%f%F{white}:%f%F{cyan}[%f%F{cyan}%~%f%F{cyan}]%f %F{141}➜%f%b "
 
+# Load version control information
+autoload -Uz vcs_info
+precmd() { vcs_info }
+
+# Format the vcs_info_msg_0_ variable
+zstyle ':vcs_info:git:*' formats ' (%b)'
+zstyle ':vcs_info:*' check-for-changes true
+
+# Set up the prompt (with git branch name)
+setopt PROMPT_SUBST
+
+PROMPT='%F{cyan}[%f%F{cyan}%~%f%F{cyan}]%f%F{146}${vcs_info_msg_0_} %F{141}➜%f  '
+RPROMPT='%F{63}%m%f'
+
+#set alias
 alias pip="pip3"
 alias python="python3"
 
+
+#allow lowercase completion
 zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'
 
+#allow git completion
+autoload -Uz compinit && compinit
+
+
+#OS specific LS colors
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    export LSCOLORS="dxgxfxdacxdadahbadacec"
+    alias ls="ls -G"
+else
+    export LS_COLORS="di=33:ln=36:so=35:pi=33;40:ex=32:bd=33;40:cd=33;40:su=37;41:sg=30;43:tw=30;42:ow=34;42"
+    alias ls="ls --color"
+fi
