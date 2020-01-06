@@ -51,7 +51,7 @@ endfun
 
 " Default colors
 set background=dark
-let s:bg = '#263238'
+let s:bg = '#262626'
 let s:fg = '#eeffff'
 let s:invisibles = '#65738e'
 let s:comments = '#546e7a'

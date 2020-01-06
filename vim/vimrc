@@ -70,20 +70,26 @@ endif
 
 
 " Vim airline
-let g:loaded_airline = 0
+let g:loaded_airline = 1
+set showmode
+set showcmd
 
 let g:airline_symbols = {}
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_theme='violet'
 let g:airline_powerline_fonts=1
-let g:airline_extensions = ['branch']
+let g:airline_extensions = []
 let g:airline#extensions#ale#enabled = 0
+let g:airline#extensions#tabline#show_splits = 1
 
 
 " Color sceme
 let g:material_terminal_italics = 1
 let g:material_theme_style = 'default'
 colorscheme material
+
+highlight StatusLine ctermbg=NONE guibg=NONE
+highlight StatusLineNC ctermbg=NONE guibg=NONE
 
 "This breaks in urxvt!!
 if (has('termguicolors'))
@@ -138,5 +144,7 @@ map <Leader>vc :VimuxPromptCommand<CR>
 map <Leader>\ :VimuxRunLastCommand<CR>
 map <Leader>vx :VimuxCloseRunner<CR>
 
+
 packloadall
 silent ! helptags ALL
+
