@@ -2,7 +2,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
-
+export TERM=xterm-256color
 #old prompt from bash
 #PROMPT="%F{207}%n%f%F{white}@%f%F{69}%m%f%F{white}:%f%F{cyan}[%f%F{cyan}%~%f%F{cyan}]%f %F{141}➜%f%b "
 
@@ -46,3 +46,6 @@ else
     export LS_COLORS="di=33:ln=36:so=35:pi=33;40:ex=32:bd=33;40:cd=33;40:su=37;41:sg=30;43:tw=30;42:ow=34;42"
     alias ls="ls --color"
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
