@@ -1,3 +1,8 @@
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
+
+
 #old prompt from bash
 #PROMPT="%F{207}%n%f%F{white}@%f%F{69}%m%f%F{white}:%f%F{cyan}[%f%F{cyan}%~%f%F{cyan}]%f %F{141}➜%f%b "
 
@@ -6,15 +11,23 @@ autoload -Uz vcs_info
 precmd() { vcs_info }
 
 # Format the vcs_info_msg_0_ variable
-zstyle ':vcs_info:*' formats '(%b)'
+zstyle ':vcs_info:*' formats ' (%b)'
 setopt PROMPT_SUBST
 
 PROMPT='%F{cyan}[%f%F{cyan}%~%f%F{cyan}]%f%F{146}${vcs_info_msg_0_} %F{141}➜%f  '
-RPROMPT='%F{63}%m%f'
+#RPROMPT='%F{63}%m%f'
 
 #set alias
 alias pip="pip3"
 alias python="python3"
+
+
+#allow tab completition on commands and files
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)
 
 #allow lowercase completion
 zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'
@@ -22,6 +35,8 @@ zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'
 #allow git completion
 autoload -Uz compinit && compinit
 
+#This is vim mode but needs more stuff
+#bindkey -v
 
 #OS specific LS colors
 if [[ "$OSTYPE" == "darwin"* ]]; then
