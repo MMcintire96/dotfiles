@@ -14,7 +14,7 @@ precmd() { vcs_info }
 zstyle ':vcs_info:*' formats ' (%b)'
 setopt PROMPT_SUBST
 
-PROMPT='%F{cyan}[%f%F{cyan}%~%f%F{cyan}]%f%F{146}${vcs_info_msg_0_} %F{141}➜%f  '
+PROMPT='%F{228}%m%f %F{cyan}[%f%F{cyan}%~%f%F{cyan}]%f%F{146}${vcs_info_msg_0_} %F{141}➜%f  '
 #RPROMPT='%F{63}%m%f'
 
 #set alias
@@ -48,4 +48,3 @@ else
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
