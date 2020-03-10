@@ -90,6 +90,8 @@ colorscheme material
 
 highlight StatusLine ctermbg=NONE guibg=NONE
 highlight StatusLineNC ctermbg=NONE guibg=NONE
+highlight TabLineFill ctermfg=NONE ctermbg=NONE guibg=NONE guifg=NONE
+highlight TabLine ctermfg=NONE ctermbg=NONE guibg=NONE guifg=NONE
 
 "This breaks in urxvt!!
 if (has('termguicolors'))
@@ -147,4 +149,3 @@ map <Leader>vx :VimuxCloseRunner<CR>
 
 packloadall
 silent ! helptags ALL
-

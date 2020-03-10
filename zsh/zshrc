@@ -20,7 +20,8 @@ PROMPT='%F{111}%m%f %F{cyan}[%f%F{cyan}%~%f%F{cyan}]%f%F{146}${vcs_info_msg_0_} 
 #set alias
 alias pip="pip3"
 alias python="python3"
-
+alias mkvirtualenv3="mkvirtualenv --python=`which python3`"
+alias mkproject3="mkproject --python=`which python3`"
 
 #allow tab completition on commands and files
 autoload -U compinit
@@ -48,3 +49,15 @@ else
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# init vars
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
+
+# init nvm
+#export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
