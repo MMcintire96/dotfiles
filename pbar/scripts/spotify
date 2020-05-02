@@ -39,11 +39,7 @@ if [[ $(eval $players) == "spotify" ]]; then
     elif [ $(eval $track_type) == "track" ] && [ $(eval $player_status) == "Playing" ]; then
         echo  $(eval $title) by $(eval $artist)
         eval pactl set-sink-input-mute "$sink_num" 0
-    elif [ $(eval $track_type) == "ad" ]; then
-        echo  Muting Ad
-        eval pactl set-sink-input-mute "$sink_num" 1
    fi
 else
     echo 
 fi
-
