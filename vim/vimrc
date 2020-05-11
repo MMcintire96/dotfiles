@@ -95,6 +95,8 @@ highlight StatusLineNC ctermbg=NONE guibg=NONE
 highlight TabLineFill ctermfg=NONE ctermbg=NONE guibg=NONE guifg=NONE
 highlight TabLine ctermfg=NONE ctermbg=NONE guibg=NONE guifg=NONE
 highlight LineNr ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#ffbfee
+"highlight LineNr ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#5657f5
+"highlight LineNr ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#49799a
 
 "This breaks in urxvt!!
 if (has('termguicolors'))

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ $BLOCK_BUTTON ]]; then
+    cmd=$(gnome-calculator)
+fi
+
+echo 

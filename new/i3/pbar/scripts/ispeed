@@ -1,0 +1,7 @@
+download="speedtest-cli | grep Download | sed -e 's,Download: ,,g' | sed -e 's, Mbit/s,,g'"
+upload="speedtest-cli | grep Upload | sed -e 's,Upload: ,,g' | sed -e 's, Mbit/s,,g'"
+
+d_int=$(eval $download)/1 |bc
+u_int=$(eval $upload)/1 |bc
+
+echo $(eval $d_int)

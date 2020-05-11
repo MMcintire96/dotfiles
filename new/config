@@ -1,0 +1,81 @@
+Host home
+ Port 1724
+ User michael
+ HostName 136.60.227.124
+
+Host mbp
+ Port 1725
+ User michael
+ HostName 136.60.227.124
+
+Host pi
+ Port 22
+ User pi
+ HostName raspberrypi.local
+
+#no sudo on cade cmon
+HOST cade
+ Port 22
+ User u1003011
+ HostName lab1-22.eng.utah.edu
+
+#websites
+Host mjm
+ Port 22
+ User mike
+ HostName michaeljmcintire.com
+
+Host api
+ Port 22
+ User mike
+ HostName api.michaeljmcintire.com
+
+HOST bespoke
+ Port 22
+ User mike
+ HostName bespoke-clothing.com
+
+HOST chrisk
+ Port 22
+ User mike
+ HostName chriskhealth.com
+
+HOST quentinrow
+ Port 22
+ User mike
+ HostName quentinrow.com
+
+HOST mcc
+ Port 22
+ User mike
+ HostName mccapparel.com
+
+HOST hc
+ Port 22
+ User mike
+ HostName hetselco.com
+
+HOST sp
+ Port 22
+ User mike
+ HostName seaportclothing.com
+
+HOST tss
+ Port 22
+ User mike
+ HostName tweedssuitshop.com
+
+HOST djm
+ Port 22
+ User mike
+ HostName danieljohnmoore.com
+
+HOST ap
+ Port 22
+ User mike
+ HostName shopavecpassion.com
+
+HOST bjhb
+ Port 22
+ User mike
+ HostName blackjackhorseback.com
