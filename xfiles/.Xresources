@@ -85,13 +85,8 @@
 !
 !URxvt------------------------
 !URxvt.font: xft:Roboto Mono-Regular:pixelsize=13,
-URxvt*font:  xft:Roboto Mono-Regular:pixelsize=13,
-URxvt*boldFont: xft:Roboto Mono-Regular:bold:pixelsize=13
+URxvt*font:  xft:Roboto Mono-Regular:pixelsize=13,xft:DejaVu Sans:pixelsize=13,xft:Inconsolata\ for\ Powerline:pixelsize=17,
 URxvt*letterSpace: 0
-!urxvt.boldFont: xft:Roboto Mono-Regular:bold:pixelsize=13:
-!URxvt*letterSpace: 1
-!Xft*antialias: 		true
-!XTerm*Term: xterm-256color
 URxvt*termName: xterm-256color
 URxvt*loginShell:  true
 urxvt*scrollBar: 		false
@@ -105,7 +100,7 @@ Xft*dpi: 			96
 Xft*hinting: 			true
 Xft*hintstyle: 			hintfull
 !URxvt*background: 	  [100]#212121
-URxvt*background: 	  [100]#262626
+URxvt*background: 	  [70]#262626
 
 Xft*rgba: 			rgb
 *internalBorder: 		5
@@ -113,10 +108,33 @@ URxvt*fading: 			10
 !URxvt*tintColor: 		#000000
 !URxvt*shading: 			0
 URxvt*inheritPixmap: 		false
-URxvt*scrollWithBuffer: false
+URxvt*scrollWithBuffer:     false
 
 URxvt.iso14755: false
 URxvt.iso14755_52: false
 
+
+!URxvt.perl-ext-common:    default,resize-font
+URxvt.keysym.C-minus:     resize-font:smaller
+URxvt.keysym.C-plus:      resize-font:bigger
+URxvt.keysym.C-equal:     resize-font:reset
+URxvt.keysym.C-question:  resize-font:show
+
 URxvt.keysym.C-v: eval: paste_clipboard
 URxvt.keysym.C-c: eval: selection_to_clipboard
+
+
+
+rofi.lines: 6
+rofi.eh: 1
+rofi.bw: 0
+rofi.font: System Roboto Mono 18
+rofi.show-match: false
+rofi.padding: 340
+rofi.separator-style: none
+rofi.hide-scrollbar: true
+rofi.fullscreen: true
+rofi.color-enabled: true
+rofi.color-window: argb:c2262626, argb:cc2f343f, argb:cc2f343f
+
+rofi.color-normal: argb:002f343f, #ffffff, argb:002f343f, argb:002f343f, #9575cd
