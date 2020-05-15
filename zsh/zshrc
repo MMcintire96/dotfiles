@@ -25,6 +25,7 @@ RPROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
 #RPROMPT='%F{63}%m%f'
 
 #set alias
+alias vi="vim"
 alias pip="pip3"
 alias python="python3"
 alias mkvirtualenv3="mkvirtualenv --python=`which python3`"
@@ -61,8 +62,8 @@ fi
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # init vars
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # init nvm
 #export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
