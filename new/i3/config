@@ -1,4 +1,4 @@
-set $mod Mod1
+set $mod Mod4
 
 font pango:Roboto-Mono 8
 
@@ -221,15 +221,7 @@ client.urgent           $orange 			$orange				$foreground2          $orange
 bindsym $mod+shift+x exec i3lock-fancy -pg -f "Roboto-Mono" -t "LOCKED"
 
 #load background items - using feh
-#exec_always feh --bg-scale /home/michael/Pictures/earth.jpg
-#exec_always feh --bg-scale /home/michael/Pictures/372562.jpg
-#exec_always feh --bg-scale /home/michael/Pictures/nwall12.jpg
-#exec_always feh --bg-scale /home/michael/Pictures/nwalla3.jpg
-#exec_always feh --bg-scale /home/michael/Pictures/wallpaper/pgrad2.jpg
-#exec_always feh --bg-scale /home/michael/Pictures/wallpaper/1092603.jpg
-#exec_always feh --bg-scale /home/michael/Pictures/wallpaper/tr.jpg
-#exec_always feh --bg-scale /home/michael/Pictures/wallpaper/lisa100.png
-exec_always feh --bg-scale /home/michael/Pictures/wallpaper/lisa100-20.png --bg-scale /home/michael/Pictures/wallpaper/lisa100-20-flip.png
+exec_always feh --bg-scale /home/michael/Pictures/spacex.jpg --bg-scale /home/michael/Pictures/spacex90.jpg --bg-scale /home/michael/Pictures/spacex.jpg
 
 #conkcy
 #exec_always conky --config=/home/michael/.config/i3/conky.conf
@@ -240,13 +232,13 @@ exec_always --no-startup-id /home/michael/.config/i3/polybar/launch.sh
 #screenshot
 bindsym Print exec scrot ~/Pictures/%b%d--%H%M%S.png
 
-bindsym $mod+g exec google-chrome
+bindsym $mod+g exec google-chrome-stable
 
 #start on login
 exec_always xrdb /home/michael/.Xresources
 
 exec urxvt
-exec google-chrome
+exec google-chrome-stable
 exec spotify
 exec discord
 exec barrier

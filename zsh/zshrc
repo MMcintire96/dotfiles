@@ -10,6 +10,25 @@ export TERM=xterm-256color
 autoload -Uz vcs_info
 precmd() { vcs_info }
 
+# init vars
+export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH="$HOME/.local/bin/:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+precmd() {
+    if [[ -n $PYENV_SHELL ]]; then
+        local version
+        version=${(@)$(pyenv version)[1]}
+        if [[ $version != system ]]; then
+            export pyenv_name="($version) "
+        fi
+    fi
+    vcs_info
+}
+
 # Format the vcs_info_msg_0_ variable
 zstyle ':vcs_info:*' formats ' (%b)'
 setopt PROMPT_SUBST
@@ -20,7 +39,7 @@ function zle-line-init zle-keymap-select {
     zle reset-prompt
 }
 
-PROMPT='%F{111}%m%f %F{cyan}[%f%F{cyan}%~%f%F{cyan}]%f%F{146}${vcs_info_msg_0_} %F{141}➜%f  '
+PROMPT='$pyenv_name%F{111}%m%f %F{cyan}[%f%F{cyan}%~%f%F{cyan}]%f%F{146}${vcs_info_msg_0_} %F{141}➜%f  '
 RPROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
 #RPROMPT='%F{63}%m%f'
 
@@ -61,14 +80,7 @@ fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# init vars
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 # init nvm
 #export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"

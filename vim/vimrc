@@ -55,7 +55,7 @@ set ruler
 set wrap!
 
 "read and writing
-set encoding=utf-8
+set encoding=UTF-8
 set autowrite
 set autoread
 set ttyfast
@@ -81,7 +81,7 @@ set showcmd
 
 let g:airline_symbols = {}
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_theme='violet'
+let g:airline_theme='nord'
 let g:airline_powerline_fonts=1
 let g:airline_extensions = []
 let g:airline#extensions#ale#enabled = 0
@@ -91,20 +91,23 @@ let g:airline#extensions#tabline#show_splits = 1
 " Color sceme
 let g:material_terminal_italics = 1
 let g:material_theme_style = 'default'
+
 colorscheme material
 
+"This breaks in urxvt!!
+if has("termguicolors")
+    set termguicolors
+endif
+
+highlight Normal guibg=NONE ctermbg=NONE guifg=NONE ctermfg=NONE
 highlight StatusLine ctermbg=NONE guibg=NONE
 highlight StatusLineNC ctermbg=NONE guibg=NONE
-highlight TabLineFill ctermfg=NONE ctermbg=NONE guibg=NONE guifg=NONE
-highlight TabLine ctermfg=NONE ctermbg=NONE guibg=NONE guifg=NONE
+"highlight TabLineFill ctermfg=NONE ctermbg=NONE guibg=NONE guifg=NONE
+"highlight TabLine ctermfg=NONE ctermbg=NONE guibg=NONE guifg=NONE
 highlight LineNr ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#ffbfee
-"highlight LineNr ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#5657f5
-"highlight LineNr ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#49799a
+"highlight SignColumn ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#ffbfee
+highlight VertSplit guibg=NONE guifg=NONE ctermbg=NONE ctermfg=NONE
 
-"This breaks in urxvt!!
-if (has('termguicolors'))
-  set termguicolors
-endif
 
 "mu complete
 let g:mucomplete#enable_auto_at_startup = 1
@@ -144,7 +147,8 @@ highlight ALEWarningSign ctermbg=NONE ctermfg=yellow guibg=NONE
 "nerdtree
 map <Leader>t :NERDTreeToggle<CR>
 let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
+let g:NERDTreeDirArrowExpandable = ''
+let g:NERDTreeDirArrowCollapsible = ''
 let NERDTreeWinSize = 25
 
 " Vimux settings
@@ -157,4 +161,4 @@ map <Leader>vx :VimuxCloseRunner<CR>
 
 
 packloadall
-silent ! helptags ALL
+" silent ! helptags ALL

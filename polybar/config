@@ -5,7 +5,7 @@ monitor=${env:MONITOR:}
 ;------------;
 
 width = 100%
-height = 30
+height = 25
 offset-y = 0
 offset-x = 0
 
@@ -18,10 +18,12 @@ border-left-size = 0
 ; COLORS ;
 ;--------;
 
-#background = #60262626
-background = #00f3a9b8
+#background = #00262626
+#background = #00f3a9b8
+background = #002e3440
 #foreground = #FFFFFF
-foreground = #333333
+#foreground = #333333
+;foreground = #d8dee9
 ;border-color = #6c71c4
 #border-color = #6499c1
 border-color = #5657f5
@@ -37,10 +39,10 @@ override-redirect = false
 ; FONTS ;
 ;-------;
 
-font-0 = Roboto Mono:size=11;2
-font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;3"
-font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=10;3"
-font-3 = "Font Awesome 5 Brands:pixelsize=10;3"
+font-0 = Roboto Mono:size=10;3
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;2"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=10;2"
+font-3 = "Font Awesome 5 Brands:pixelsize=10;2"
 
 ;---------------;
 ; MISCELLANEOUS ;
@@ -52,14 +54,252 @@ padding-right = 2
 padding-bottom = 15
 module-margin = 1.5
 
-modules-left = rofi thunar audio spotify
+modules-left = spotify
 modules-center = i3
-modules-right = network cpu weather time
+modules-right = radio audio time thunar rofi
 
+#modules-left = i3
+#modules-center = time
+#modules-right = spotify audio cpu thunar rofi
+
+tray-position = none
+tray-detached = true
+radius = 9.0
+
+
+[bar/leftBar]
+monitor=${env:MONITOR:}
+;------------;
+; DIMENSIONS ;
+;------------;
+
+width = 25%
+height = 25
+offset-y = 10
+offset-x = 20
+
+border-top-size = 0
+border-bottom-size = 0
+border-right-size = 0
+border-left-size = 0
+
+;--------;
+; COLORS ;
+;--------;
+
+background = #2e3440
+foreground = #FFFFFF
+border-color = #5657f5
+
+;----------;
+; LOCATION ;
+;----------;
+
+bottom = false
+override-redirect = true
+wm-restack = i3
+
+;-------;
+; FONTS ;
+;-------;
+
+font-0 = Roboto Mono:size=10;3
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;2"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=10;2"
+font-3 = "Font Awesome 5 Brands:pixelsize=10;2"
+
+;---------------;
+; MISCELLANEOUS ;
+;---------------;
+
+fixed-center = true
+padding-left = 2
+padding-right = 2
+padding-bottom = 15
+module-margin = 1.5
+
+modules-center = spotify
+
+
+tray-position = none
+tray-detached = true
+radius = 9.0
+
+
+
+
+[bar/centerBar]
+monitor=${env:MONITOR:}
+;------------;
+; DIMENSIONS ;
+;------------;
+
+width = 25%
+height = 25
+offset-y = 10
+offset-x = 720
+
+border-top-size = 0
+border-bottom-size = 0
+border-right-size = 0
+border-left-size = 0
+
+;--------;
+; COLORS ;
+;--------;
+
+background = #90262626
+foreground = #FFFFFF
+border-color = #5657f5
+
+;----------;
+; LOCATION ;
+;----------;
+
+bottom = false
+override-redirect = true
+wm-restack = i3
+
+;-------;
+; FONTS ;
+;-------;
+
+font-0 = Roboto Mono:size=10;3
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;2"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=10;2"
+font-3 = "Font Awesome 5 Brands:pixelsize=10;2"
+
+;---------------;
+; MISCELLANEOUS ;
+;---------------;
+
+fixed-center = true
+padding-left = 2
+padding-right = 2
+padding-bottom = 15
+module-margin = 1.5
+
+modules-center = i3
+
+tray-position = none
+tray-detached = true
+radius = 9.0
+
+[bar/rightBar]
+monitor=${env:MONITOR:}
+;------------;
+; DIMENSIONS ;
+;------------;
+
+width = 25%
+height = 25
+offset-y = 10
+offset-x = 1420
+
+border-top-size = 0
+border-bottom-size = 0
+border-right-size = 0
+border-left-size = 0
+
+;--------;
+; COLORS ;
+;--------;
+
+background = #90262626
+foreground = #FFFFFF
+border-color = #5657f5
+
+;----------;
+; LOCATION ;
+;----------;
+
+bottom = false
+override-redirect = true
+wm-restack = i3
+
+;-------;
+; FONTS ;
+;-------;
+
+font-0 = Roboto Mono:size=10;3
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;2"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=10;2"
+font-3 = "Font Awesome 5 Brands:pixelsize=10;2"
+
+;---------------;
+; MISCELLANEOUS ;
+;---------------;
+
+fixed-center = true
+padding-left = 2
+padding-right = 2
+padding-bottom = 15
+module-margin = 1.5
+
+modules-center = audio time rofi thunar
+
+
+tray-position = none
+tray-detached = true
+radius = 0.0
+
+[bar/dummyBar]
+monitor=${env:MONITOR:}
+;------------;
+; DIMENSIONS ;
+;------------;
+
+width = 100%
+height = 25
+offset-y = 0
+offset-x = 0
+
+border-top-size = 0
+border-bottom-size = 0
+border-right-size = 0
+border-left-size = 0
+
+;--------;
+; COLORS ;
+;--------;
+
+background = #00000000
+foreground = #00000000
+border-color = #00000000
+
+;----------;
+; LOCATION ;
+;----------;
+
+bottom = false
+override-redirect = false
+wm-restack = i3
+
+;-------;
+; FONTS ;
+;-------;
+
+font-0 = Roboto Mono:size=10;3
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;2"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=10;2"
+font-3 = "Font Awesome 5 Brands:pixelsize=10;2"
+
+;---------------;
+; MISCELLANEOUS ;
+;---------------;
+
+fixed-center = true
+padding-left = 2
+padding-right = 2
+padding-bottom = 15
+module-margin = 1.5
+modules-left = thunar
 tray-position = none
 tray-detached = true
 
 
+
+;----------------------------------------------;
 ;---------;
 ; MODULES ;
 ;---------;
@@ -87,11 +327,25 @@ interval = 1800
 [module/spotify]
 type = custom/script
 
-exec = /home/michael/.config/i3/scripts/spotify
+exec = /home/michael/.config/i3/scripts/spotify | cut -c -50
 exec-if = playerctl -l |grep spotify
 
 tail = true
 interval = 1
+
+click-left = playerctl previous
+click-right = playerctl next
+click-middle = playerctl play-pause
+
+[module/spotify-control]
+type = custom/script
+
+exec = ''
+
+label = %{A1:playerctl previous:}%{A} %{A1:playerctl play-pause:}%{A} %{A}%{A1:playerctl next:}%{A}
+format = <label>
+tail = true
+
 
 click-left = playerctl previous
 click-right = playerctl next
@@ -103,21 +357,25 @@ type = internal/i3
 pin-workspaces = true
 strip-wsnumbers = true
 enable-scroll = true
+enable-ipc = true
 reverse-scroll = false
 wrapping-scroll = false
 
-label-unfocused-foreground = #70333333
-#label-focused-foreground = #333333
-label-focused-foreground = #5657f5
+#label-unfocused-foreground = #70333333
+#label-focused-foreground = #5657f5
 label-urgent-foreground = #ff0000
+
+label-unfocused-foreground = #cacaca
+label-focused-foreground = #04d9e0
+label-visible-foreground = #cacaca
 
 ws-icon-0 = 1;
 ws-icon-1 = 2;
 ws-icon-2 = 3;
 ws-icon-3 = 4
 ws-icon-4 = 5
-ws-icon-5 = 6;
-ws-icon-6 = 7;
+ws-icon-5 = 6
+ws-icon-6 = 7
 ws-icon-7 = 8
 ws-icon-8 = 9
 ws-icon-default = 
@@ -130,6 +388,7 @@ label-urgent = %icon%
 label-focused-padding = 1
 label-unfocused-padding = 1
 label-urgent-padding = 1
+label-visible-padding = 1
 
 
 [module/twitch]
@@ -185,6 +444,25 @@ click-left = gnome-calculator
 click-right = gnome-calculator
 click-middle = gnome-calculator
 
+[module/radio]
+type = custom/script
+
+exec = ~/.config/i3/scripts/playsdr idle
+
+format = <label>
+label = %output%
+
+tail = true
+
+click-left = ~/.config/i3/scripts/playsdr play 104.3
+click-right = ~/.config/i3/scripts/playsdr change 90.1
+click-middle = ~/.config/i3/scripts/playsdr stop
+
+scroll-up = ~/.config/i3/scripts/playsdr change 90.1
+scroll-down = ~/.config/i3/scripts/playsdr change 90.1
+
+interval = 1.0
+
 [module/thunar]
 type = custom/script
 
@@ -198,7 +476,6 @@ click-middle = thunar
 type = internal/date
 interval = 1.0
 date = %a %b %d %H:%M
-
 
 [bar/floatbar]
 inherit = bar/mybar
