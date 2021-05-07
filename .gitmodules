@@ -22,3 +22,9 @@
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
+[submodule "coc-git"]
+	path = coc-git
+	url = https://github.com/neoclide/coc-git.git
+[submodule "vim/pack/all/start/vim-fugutive"]
+	path = vim/pack/all/start/vim-fugutive
+	url = https://github.com/tpope/vim-fugitive.git
