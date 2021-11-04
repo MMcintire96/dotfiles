@@ -28,6 +28,9 @@
 [submodule "vim/pack/all/start/vim-fugutive"]
 	path = vim/pack/all/start/vim-fugutive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule "vim/pack/all/start/sensible"]
+	path = vim/pack/all/start/sensible
+	url = https://tpope.io/vim/sensible.git
 [submodule "vim/pack/all/start/coc.nvim"]
 	path = vim/pack/all/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git

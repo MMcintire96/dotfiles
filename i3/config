@@ -4,14 +4,15 @@ font pango:Roboto-Mono 8
 
 floating_modifier $mod
 
-for_window [class="^.*"] border pixel 2
-for_window [class="gui"] border pixel 0px;
+for_window [class="^.*"] border pixel 0
+for_window [class="gui"] border pixel 0;
 gaps inner 21
 gaps outer 0
+border_radius 8
 smart_borders on
 hide_edge_borders smart_no_gaps
 
-exec --no-startup-id xrandr --output DP-3 --off --output DVI-I-0 --off --output HDMI-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DP-5 --off --output DP-4 --off --output DVI-I-1 --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-2 --off --output DP-1 --off --output DP-0 --off
+exec --no-startup-id /home/michael/.screenlayout/layout.sh
 
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
@@ -54,7 +55,7 @@ mode "$mode_gaps_outer" {
 
 
 # start a terminal
-bindsym $mod+t exec urxvt
+bindsym $mod+t exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -101,8 +102,8 @@ bindsym $mod+space focus mode_toggle
 
 bindsym $mod+a focus parent
 
-set $monitor1 "HDMI-0"
-set $monitor2 "DVI-I-1"
+set $monitor1 "DP-5"
+set $monitor2 "HDMI-0"
 
 set $workspace1 "1"
 set $workspace2 "2"
@@ -210,16 +211,16 @@ set $urgent-bg-color     #E53935
 # window colors
 #                       background          border              text                  indicator
 client.focused          $blue               $violet             $foreground2          $violet
-client.unfocused        $cyan_faded  		    $blue               $foreground1          $blue
-client.focused_inactive $cyan_faded         $blue	              $foreground1          $blue
-client.urgent           $orange 			      $orange				      $foreground2          $orange
+client.unfocused        $cyan_faded  		$blue               $foreground1          $blue
+client.focused_inactive $cyan_faded         $blue	            $foreground1          $blue
+client.urgent           $orange 			$orange			    $foreground2          $orange
 
 
 #lock screen -- instantly
 bindsym $mod+shift+x exec i3lock-fancy -pg -f "Roboto-Mono" -t "LOCKED"
 
 #load background items - using feh
-#exec_always feh --bg-scale /home/michael/Pictures/earth.jpg
+exec_always --no-startup-id feh --bg-scale /home/michael/Downloads/dk.jpg
 
 #clock
 #exec_always feh --bg-scale /home/michael/Pictures/clock.png
@@ -229,7 +230,6 @@ bindsym $mod+shift+x exec i3lock-fancy -pg -f "Roboto-Mono" -t "LOCKED"
 #exec_always feh --bg-scale /home/michael/Pictures/wallpaper8.jpg
 #exec_always feh --bg-scale /home/michael/Pictures/wallpaper9.jpg
 #exec_always feh --bg-scale /home/michael/Pictures/wallpaper10.jpg
-exec_always feh --bg-scale /home/michael/Pictures/372562.jpg
 
 #conkcy
 #exec_always conky --config=/home/michael/.config/i3/conky.conf
@@ -237,24 +237,25 @@ exec_always feh --bg-scale /home/michael/Pictures/372562.jpg
 #polybar
 exec_always --no-startup-id /home/michael/.config/i3/polybar/launch.sh
 
+#compton
+exec_always compton --config /home/michael/.config/i3/compton.conf
+
 #screenshot
 bindsym Print exec scrot ~/Pictures/%b%d--%H%M%S.png
 
-bindsym $mod+g exec google-chrome
+bindsym $mod+g exec chromium
 
 #start on login
-exec urxvt
-exec google-chrome
+#exec urxvt
+#exec chromium
 exec spotify
 exec discord
-exec barrier
 #for_window [class="URxvt"] move to workspace $workspace1
 for_window [class="Spotify"] move to workspace $workspace3
 for_window [class="discord"] move to workspace $workspace2
 for_window [class="obs"] move to workspace $workspace7
 for_window [class="Firefox"] move to workspace $workspace6
 for_window [class="imgui"] floating enable
-exec_always compton --config /home/michael/.config/i3/compton.conf
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% #decrease sound volume
