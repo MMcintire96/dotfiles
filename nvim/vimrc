@@ -83,6 +83,7 @@ map <Leader>vx :VimuxCloseRunner<CR>
 nnoremap <leader>t :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
 nnoremap <leader>n :NvimTreeFindFile<CR>
+"
 " Floatterm
 let g:floaterm_keymap_new = '<Leader>ft'
 " Bar Bar
@@ -94,7 +95,6 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-noremap <silent> <C-n> :lua require'tree'.toggle()<CR>
 
 " Vimux settings
 let g:VimuxOrientation = "v"
@@ -102,11 +102,5 @@ let g:VimuxHeight = "20"
 
 " Auto Cmds
 " autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-autocmd! bufwritepost .vimrc source %
+" autocmd! bufwritepost .vimrc source %
 autocmd BufWritePre * :%s/\s\+$//e
-
-" LUA
-lua << END
-    -- dofile("/home/michael/.config/nvim/lua/nv/init.lua")
-END
-

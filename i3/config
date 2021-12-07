@@ -217,19 +217,12 @@ client.urgent           $orange 			$orange			    $foreground2          $orange
 
 
 #lock screen -- instantly
-bindsym $mod+shift+x exec i3lock-fancy -pg -f "Roboto-Mono" -t "LOCKED"
+#bindsym $mod+shift+x exec i3lock-fancy -pg -f "Roboto-Mono" -t "LOCKED"
 
 #load background items - using feh
-exec_always --no-startup-id feh --bg-scale /home/michael/Downloads/dk.jpg
+#exec_always --no-startup-id feh --bg-scale /home/michael/Downloads/dk.jpg
+exec_always --no-startup-id feh --bg-scale /home/michael/Pictures/mojave-night.jpg
 
-#clock
-#exec_always feh --bg-scale /home/michael/Pictures/clock.png
-#exec_always feh --bg-scale /home/michael/Pictures/wallpaper7.jpg
-
-# weeb
-#exec_always feh --bg-scale /home/michael/Pictures/wallpaper8.jpg
-#exec_always feh --bg-scale /home/michael/Pictures/wallpaper9.jpg
-#exec_always feh --bg-scale /home/michael/Pictures/wallpaper10.jpg
 
 #conkcy
 #exec_always conky --config=/home/michael/.config/i3/conky.conf
@@ -238,12 +231,9 @@ exec_always --no-startup-id feh --bg-scale /home/michael/Downloads/dk.jpg
 exec_always --no-startup-id /home/michael/.config/i3/polybar/launch.sh
 
 #compton
-exec_always compton --config /home/michael/.config/i3/compton.conf
+exec_always --no-startup-id compton --config /home/michael/.config/i3/compton.conf
 
-#screenshot
-bindsym Print exec scrot ~/Pictures/%b%d--%H%M%S.png
-
-bindsym $mod+g exec chromium
+bindsym $mod+g exec google-chrome-stable
 
 #start on login
 #exec urxvt

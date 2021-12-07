@@ -1,0 +1,32 @@
+local Plug = vim.fn['plug#']
+
+vim.call('plug#begin', '~/.config/nvim/plugged')
+
+Plug('pangloss/vim-javascript')
+Plug('ryanoasis/vim-devicons')
+Plug('preservim/vimux')
+Plug('voldikss/vim-floaterm')
+Plug('airblade/vim-gitgutter')
+Plug('fatih/vim-go', { ['do'] = ':GoUpdateBinaries' })
+Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
+
+Plug('romgrk/barbar.nvim')
+Plug('kyazdani42/nvim-web-devicons')
+Plug('neovim/nvim-lspconfig')
+Plug('williamboman/nvim-lsp-installer')
+Plug('nvim-lualine/lualine.nvim')
+Plug('nvim-lua/plenary.nvim')
+Plug('nvim-telescope/telescope.nvim')
+Plug('hrsh7th/nvim-cmp')
+Plug('hrsh7th/cmp-vsnip')
+Plug('hrsh7th/vim-vsnip')
+Plug('hrsh7th/cmp-nvim-lsp')
+Plug('hrsh7th/cmp-buffer')
+Plug('hrsh7th/cmp-path')
+Plug('hrsh7th/cmp-cmdline')
+Plug('onsails/lspkind-nvim')
+Plug('folke/trouble.nvim')
+Plug('rmagatti/goto-preview')
+Plug('kyazdani42/nvim-tree.lua')
+
+vim.call('plug#end')
