@@ -6,9 +6,9 @@ floating_modifier $mod
 
 for_window [class="^.*"] border pixel 0
 for_window [class="gui"] border pixel 0;
-gaps inner 21
+gaps inner 18
 gaps outer 0
-border_radius 8
+border_radius 0
 smart_borders on
 hide_edge_borders smart_no_gaps
 
