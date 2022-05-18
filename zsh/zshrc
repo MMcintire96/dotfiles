@@ -48,8 +48,9 @@ RPROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
 #RPROMPT='%F{63}%m%f'
 
 #set alias
-alias vi="nvim"
-alias vim="nvim"
+alias vi="nvim-nightly"
+alias vim="nvim-nightly"
+alias nvim="nvim-nightly"
 alias tmux="tmux -2"
 
 #alias pip="pip3"
