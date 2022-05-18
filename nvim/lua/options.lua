@@ -1,2 +1,0 @@
-local set = vim.opt
-
