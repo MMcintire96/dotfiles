@@ -1,0 +1,138 @@
+" High level fixes
+syntax on
+syntax enable
+syntax sync fromstart
+set noerrorbells
+set nocompatible
+set noswapfile
+set hidden
+set exrc
+set secure
+set wildmode=longest:full,full
+set mouse+=a
+" set clipboard=unnamedplus
+set pastetoggle=<F2>
+set splitbelow
+set splitright
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set modelines=0
+set backspace=indent,eol,start
+set autoindent
+set noshowcmd
+set noshowmode
+set number relativenumber
+set ruler
+set wrap!
+set encoding=UTF-8
+set autowrite
+set autoread
+set ttyfast
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmode
+set showcmd
+set completeopt=menu,menuone,noselect
+set fillchars+=eob:\ 
+set laststatus=3
+
+set shell=zsh\ --login
+
+" Color sceme
+" colorscheme custom
+" highlight Normal guibg=NONE ctermbg=NONE guifg=NONE ctermfg=NONE
+highlight NonText guibg=NONE ctermbg=NONE
+highlight StatusLine ctermbg=NONE guibg=#3b4252
+highlight TabLineFill ctermfg=NONE ctermbg=NONE guibg=NONE guifg=NONE
+highlight LineNr ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#ffbfee
+highlight VertSplit guibg=NONE guifg=#3b4252 ctermbg=NONE ctermfg=NONE
+highlight PMENU guibg=#3B4252
+" highlight NvimTreeNormal guibg=NONE ctermbg=None
+
+if has("termguicolors")
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
+
+
+" File Types
+filetype plugin indent on
+autocmd FileType java setlocal ts=2 sts=2 sw=2
+autocmd FileType js setlocal ts=2 sts=2 sw=2
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+autocmd FileType typescript setlocal ts=2 sts=2 sw=2
+autocmd FileType ts setlocal ts=2 sts=2 sw=2
+autocmd FileType css setlocal ts=2 sts=2 sw=2
+autocmd FileType htmldjango setlocal ts=2 sts=2 sw=2
+autocmd FileType html setlocal ts=2 sts=2 sw=2
+autocmd FileType cpp setlocal ts=2 sts=2 sw=2
+autocmd FileType c setlocal ts=2 sts=2 sw=2
+autocmd FileType python setlocal ts=4 sts=4 sw=4
+autocmd FileType lua setlocal ts=2 sts=2 sw=2
+
+autocmd TermOpen * setlocal nonumber norelativenumber
+
+" Mappings
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+noremap - `
+noremap ` -
+ " Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+
+" Make Y like D, C
+noremap Y y$
+
+noremap n nzzzv
+noremap N nzzzv
+noremap J mzJ`z
+
+
+" Vimux
+nnoremap <Leader>vb :VimuxRunCommand("clear;rspec " . buffname("%"))<CR>
+nnoremap <Leader>vc :VimuxPromptCommand<CR>
+nnoremap <Leader>\ :VimuxRunLastCommand<CR>
+nnoremap <Leader>vx :VimuxCloseRunner<CR>
+
+
+" NvimTree
+nnoremap <leader>t :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
+"
+" Floatterm
+let g:floaterm_keymap_new = '<Leader>ft'
+
+" Tagbar
+nnoremap <leader>a :TagbarToggle<CR>
+
+" Trouble
+nnoremap <leader>e :TroubleToggle<CR>
+
+" Bar Bar
+nnoremap <leader>[ :BufferPrevious<CR>
+nnoremap <leader>] :BufferNext<CR>
+nnoremap <leader>x :BufferClose<CR>
+" Telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope file_browser<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>cs <cmd>Telescope colorscheme<cr>
+nnoremap <leader>of <cmd>Telescope oldfiles<cr>
+
+" Vimux settings
+let g:VimuxOrientation = "v"
+let g:VimuxHeight = "20"
+
+let g:gitgutter_git_executable = "/usr/bin/git"
+
