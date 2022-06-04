@@ -45,12 +45,12 @@ set shell=zsh\ --login
 " Color sceme
 " colorscheme custom
 " highlight Normal guibg=NONE ctermbg=NONE guifg=NONE ctermfg=NONE
-highlight NonText guibg=NONE ctermbg=NONE
-highlight StatusLine ctermbg=NONE guibg=#3b4252
-highlight TabLineFill ctermfg=NONE ctermbg=NONE guibg=NONE guifg=NONE
-highlight LineNr ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#ffbfee
-highlight VertSplit guibg=NONE guifg=#3b4252 ctermbg=NONE ctermfg=NONE
-highlight PMENU guibg=#3B4252
+" highlight NonText guibg=NONE ctermbg=NONE
+" highlight StatusLine ctermbg=NONE guibg=#3b4252
+" highlight TabLineFill ctermfg=NONE ctermbg=NONE guibg=NONE guifg=NONE
+" highlight LineNr ctermfg=NONE ctermbg=NONE guibg=NONE guifg=#ffbfee
+" highlight VertSplit guibg=NONE guifg=#3b4252 ctermbg=NONE ctermfg=NONE
+" highlight PMENU guibg=#3B4252
 " highlight NvimTreeNormal guibg=NONE ctermbg=None
 
 if has("termguicolors")

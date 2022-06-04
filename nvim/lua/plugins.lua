@@ -32,7 +32,7 @@ Plug('kyazdani42/nvim-tree.lua')
 Plug('karb94/neoscroll.nvim')
 Plug('preservim/tagbar')
 Plug('rhysd/git-messenger.vim')
--- Plug('nvim-lualine/lualine.nvim')
+Plug('nvim-lualine/lualine.nvim')
 Plug('romgrk/barbar.nvim')
 Plug('b0o/incline.nvim')
 Plug('startup-nvim/startup.nvim')
@@ -41,8 +41,11 @@ Plug('andweeb/presence.nvim')
 Plug('numToStr/Comment.nvim')
 Plug('rcarriga/nvim-notify')
 
+Plug('RRethy/vim-illuminate')
+Plug('sbdchd/neoformat')
 Plug('navarasu/onedark.nvim')
 Plug('shaunsingh/nord.nvim')
+
 
 -- Custom Plugins
 -- Plug('/home/michael/.config/nvim/plugin/run-notify.nvim')
