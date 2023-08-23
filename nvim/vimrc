@@ -77,6 +77,10 @@ autocmd FileType lua setlocal ts=2 sts=2 sw=2
 
 autocmd TermOpen * setlocal nonumber norelativenumber
 
+" Commands
+command! W  write
+command! Q  quit
+
 " Mappings
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -121,7 +125,6 @@ nnoremap <leader>e :TroubleToggle<CR>
 " Bar Bar
 nnoremap <leader>[ :BufferPrevious<CR>
 nnoremap <leader>] :BufferNext<CR>
-nnoremap <leader>x :BufferClose<CR>
 " Telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
@@ -129,6 +132,8 @@ nnoremap <leader>fb <cmd>Telescope file_browser<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>cs <cmd>Telescope colorscheme<cr>
 nnoremap <leader>of <cmd>Telescope oldfiles<cr>
+
+nnoremap <leader>x <Plug>JupyterExecuteAll
 
 " Vimux settings
 let g:VimuxOrientation = "v"

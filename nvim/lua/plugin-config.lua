@@ -5,6 +5,36 @@ require('neoscroll').setup()
 -- Incline
 require('incline').setup()
 
+-- Gitsings
+require('gitsigns').setup()
+
+-- Markdown Preview
+require('peek').setup({
+  auto_load = true,         -- whether to automatically load preview when
+  close_on_bdelete = true,  -- close preview window on buffer delete
+  syntax = true,            -- enable syntax highlighting, affects performance
+  theme = 'dark',           -- 'dark' or 'light'
+  update_on_change = true,
+  app = 'google-chrome-stable',          -- 'webview', 'browser', string or a table of strings
+  filetype = { 'markdown' },-- list of filetypes to recognize as markdown
+  -- relevant if update_on_change is true
+  throttle_at = 200000,     -- start throttling when file exceeds this
+                            -- amount of bytes in size
+  throttle_time = 'auto',   -- minimum amount of time in milliseconds
+                            -- that has to pass before starting new render
+})
+
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+require("mason-lspconfig").setup()
+
 -- OneDark
 require('onedark').setup({
   style = 'dark', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
@@ -181,10 +211,14 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
+vim.api.nvim_set_keymap('n', '<leader>vv', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
 vim.diagnostic.config({
   virtual_text = {
     prefix = '',
     source = "if_many",
+  },
+  float = {
+    source = "always",  -- Or "if_many"
   },
   signs = true,
   underline = true,
@@ -214,11 +248,11 @@ end
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'tsserver', 'gopls', 'angularls', 'pyright'}
+local servers = { 'tsserver', 'gopls', 'angularls', 'pyright', 'solargraph'}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -255,9 +289,6 @@ cmp.setup({
     }, {
       { name = 'buffer', keyword_length = 2 },
     }),
-    experimental = {
-      ghost_text = true,
-    },
     view = {
       entries = "custom",
     },
@@ -354,7 +385,7 @@ require("telescope").load_extension "file_browser"
 
 -- treesitter
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"python",  "typescript"},
+  ensure_installed = {"python",  "typescript", "lua", "ruby"},
   sync_install = false,
   ignore_install = {},
   highlight = {
@@ -412,48 +443,70 @@ require("trouble").setup{
     use_lsp_diagnostic_signs = false
 }
 
+function _tree_toggle()
+    if require'nvim-tree.view'.is_visible() then
+        require'barbar.api'.set_offset(0)
+    else
+        require'barbar.api'.set_offset(31, 'FileTree')
+    end
+    require'nvim-tree'.toggle()
+end
+local tree ={}
+vim.api.nvim_set_keymap('n', '<Leader>t', '<cmd>lua _tree_toggle()<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader>t', '<cmd>NvimTreeToggle<CR>', {noremap = true, silent = true})
 -- nvim-tree
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 -- default mappings
-local treeList = {
-  { key = {"<CR>", "o", "<2-LeftMouse>"}, cb = tree_cb("edit") },
-  { key = {"<2-RightMouse>", "<C-]>"},    cb = tree_cb("cd") },
-  { key = "a",                            cb = tree_cb("vsplit") },
-  { key = "x",                            cb = tree_cb("split") },
-  { key = "t",                            cb = tree_cb("tabnew") },
-  { key = "<",                            cb = tree_cb("prev_sibling") },
-  { key = ">",                            cb = tree_cb("next_sibling") },
-  { key = "P",                            cb = tree_cb("parent_node") },
-  { key = "<BS>",                         cb = tree_cb("close_node") },
-  { key = "<S-CR>",                       cb = tree_cb("close_node") },
-  { key = "<Tab>",                        cb = tree_cb("preview") },
-  { key = "K",                            cb = tree_cb("first_sibling") },
-  { key = "J",                            cb = tree_cb("last_sibling") },
-  { key = "I",                            cb = tree_cb("toggle_ignored") },
-  { key = "i",                            cb = tree_cb("toggle_dotfiles") },
-  { key = "r",                            cb = tree_cb("refresh") },
-  { key = "d",                            cb = tree_cb("remove") },
-  { key = "D",                            cb = tree_cb("trash") },
-  { key = "R",                            cb = tree_cb("rename") },
-  { key = "<C-R>",                        cb = tree_cb("full_rename") },
-  { key = "c",                            cb = tree_cb("copy") },
-  { key = "p",                            cb = tree_cb("paste") },
-  { key = "y",                            cb = tree_cb("copy_name") },
-  { key = "Y",                            cb = tree_cb("copy_path") },
-  { key = "gy",                           cb = tree_cb("copy_absolute_path") },
-  { key = "[c",                           cb = tree_cb("prev_git_item") },
-  { key = "]c",                           cb = tree_cb("next_git_item") },
-  { key = "u",                            cb = tree_cb("dir_up") },
-  { key = "q",                            cb = tree_cb("close") },
-  { key = "?",                           cb = tree_cb("toggle_help") },
-}
+local function on_attach(bufnr)
+  local api = require('nvim-tree.api')
 
+  local function opts(desc)
+    return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+
+  -- Mappings migrated from view.mappings.list
+  --
+  -- You will need to insert "your code goes here" for any mappings with a custom action_cb
+  vim.keymap.set('n', '<CR>', api.node.open.edit, opts('Open'))
+  vim.keymap.set('n', 'o', api.node.open.edit, opts('Open'))
+  vim.keymap.set('n', '<2-LeftMouse>', api.node.open.edit, opts('Open'))
+  vim.keymap.set('n', '<2-RightMouse>', api.tree.change_root_to_node, opts('CD'))
+  vim.keymap.set('n', '<C-]>', api.tree.change_root_to_node, opts('CD'))
+  vim.keymap.set('n', 'a', api.node.open.vertical, opts('Open: Vertical Split'))
+  vim.keymap.set('n', 'x', api.node.open.horizontal, opts('Open: Horizontal Split'))
+  vim.keymap.set('n', 't', api.node.open.tab, opts('Open: New Tab'))
+  vim.keymap.set('n', '<', api.node.navigate.sibling.prev, opts('Previous Sibling'))
+  vim.keymap.set('n', '>', api.node.navigate.sibling.next, opts('Next Sibling'))
+  vim.keymap.set('n', 'P', api.node.navigate.parent, opts('Parent Directory'))
+  vim.keymap.set('n', '<BS>', api.node.navigate.parent_close, opts('Close Directory'))
+  vim.keymap.set('n', '<S-CR>', api.node.navigate.parent_close, opts('Close Directory'))
+  vim.keymap.set('n', '<Tab>', api.node.open.preview, opts('Open Preview'))
+  vim.keymap.set('n', 'K', api.node.navigate.sibling.first, opts('First Sibling'))
+  vim.keymap.set('n', 'J', api.node.navigate.sibling.last, opts('Last Sibling'))
+  vim.keymap.set('n', 'i', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles'))
+  vim.keymap.set('n', 'r', api.tree.reload, opts('Refresh'))
+  vim.keymap.set('n', 'd', api.fs.remove, opts('Delete'))
+  vim.keymap.set('n', 'D', api.fs.trash, opts('Trash'))
+  vim.keymap.set('n', 'R', api.fs.rename, opts('Rename'))
+  vim.keymap.set('n', '<C-R>', api.fs.rename_sub, opts('Rename: Omit Filename'))
+  vim.keymap.set('n', 'c', api.fs.copy.node, opts('Copy'))
+  vim.keymap.set('n', 'p', api.fs.paste, opts('Paste'))
+  vim.keymap.set('n', 'y', api.fs.copy.filename, opts('Copy Name'))
+  vim.keymap.set('n', 'Y', api.fs.copy.relative_path, opts('Copy Relative Path'))
+  vim.keymap.set('n', 'gy', api.fs.copy.absolute_path, opts('Copy Absolute Path'))
+  vim.keymap.set('n', '[c', api.node.navigate.git.prev, opts('Prev Git'))
+  vim.keymap.set('n', ']c', api.node.navigate.git.next, opts('Next Git'))
+  vim.keymap.set('n', 'u', api.tree.change_root_to_parent, opts('Up'))
+  vim.keymap.set('n', 'q', api.tree.close, opts('Close'))
+  vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
+
+end
 
 require'nvim-tree'.setup {
+  on_attach =   on_attach,
   disable_netrw       = true,
   hijack_netrw        = true,
-  open_on_setup       = false,
-  ignore_ft_on_setup  = {},
   open_on_tab         = false,
   hijack_cursor       = false,
   update_cwd          = false,
@@ -506,14 +559,12 @@ require'nvim-tree'.setup {
   },
   view = {
     width = 30,
-    height = 30,
     hide_root_folder = false,
     side = 'left',
     preserve_window_proportions = false,
     signcolumn = "yes",
     mappings = {
       custom_only = false,
-      list = treeList
     },
     number = false,
     relativenumber = false
@@ -525,7 +576,7 @@ require'nvim-tree'.setup {
 }
 
 
-vim.g.bufferline = {
+require'barbar'.setup{
   animation = true,
   auto_hide = false,
   tabpages = true,
@@ -533,13 +584,87 @@ vim.g.bufferline = {
   clickable = true,
   exclude_ft = {'javascript'},
   exclude_name = {'package.json'},
-  icons = true,
-  icon_custom_colors = false,
-  icon_separator_active = '▎',
-  icon_separator_inactive = '▎',
-  icon_close_tab = '',
-  icon_close_tab_modified = '●',
-  icon_pinned = '車',
+  icons = {
+    -- Configure the base icons on the bufferline.
+    -- Valid options to display the buffer index and -number are `true`, 'superscript' and 'subscript'
+    buffer_index = false,
+    buffer_number = false,
+    button = '',
+    -- Enables / disables diagnostic symbols
+    diagnostics = {
+      [vim.diagnostic.severity.ERROR] = {enabled = true, icon = 'ﬀ'},
+      [vim.diagnostic.severity.WARN] = {enabled = false},
+      [vim.diagnostic.severity.INFO] = {enabled = false},
+      [vim.diagnostic.severity.HINT] = {enabled = true},
+    },
+    gitsigns = {
+      added = {enabled = true, icon = '+'},
+      changed = {enabled = true, icon = '~'},
+      deleted = {enabled = true, icon = '-'},
+    },
+    filetype = {
+      -- Sets the icon's highlight group.
+      -- If false, will use nvim-web-devicons colors
+      custom_colors = false,
+
+      -- Requires `nvim-web-devicons` if `true`
+      enabled = true,
+    },
+    separator = {left = '▎', right = ''},
+
+    -- If true, add an additional separator at the end of the buffer list
+    separator_at_end = true,
+
+    -- Configure the icons on the bufferline when modified or pinned.
+    -- Supports all the base icon options.
+    modified = {button = '●'},
+    pinned = {button = '', filename = true},
+
+    -- Use a preconfigured buffer appearance— can be 'default', 'powerline', or 'slanted'
+    preset = 'default',
+
+    -- Configure the icons on the bufferline based on the visibility of a buffer.
+    -- Supports all the base icon options, plus `modified` and `pinned`.
+    alternate = {filetype = {enabled = false}},
+    current = {buffer_index = true},
+    inactive = {button = '×'},
+    visible = {modified = {buffer_number = false}},
+  },
+
+  -- If true, new buffers will be inserted at the start/end of the list.
+  -- Default is to insert after current buffer.
+  insert_at_end = false,
+  insert_at_start = false,
+
+  -- Sets the maximum padding width with which to surround each tab
+  maximum_padding = 1,
+
+  -- Sets the minimum padding width with which to surround each tab
+  minimum_padding = 1,
+
+  -- Sets the maximum buffer name length.
+  maximum_length = 30,
+
+  -- Sets the minimum buffer name length.
+  minimum_length = 0,
+
+  -- If set, the letters for each buffer in buffer-pick mode will be
+  -- assigned based on their name. Otherwise or in case all letters are
+  -- already assigned, the behavior is to assign letters in order of
+  -- usability (see order below)
+  semantic_letters = true,
+
+  -- Set the filetypes which barbar will offset itself for
+  sidebar_filetypes = {
+    -- Use the default values: {event = 'BufWinLeave', text = nil}
+    NvimTree = true,
+    -- Or, specify the text used for the offset:
+    undotree = {text = 'undotree'},
+    -- Or, specify the event which the sidebar executes when leaving:
+    ['neo-tree'] = {event = 'BufWipeout'},
+    -- Or, specify both
+    Outline = {event = 'BufWinLeave', text = 'symbols-outline'},
+  },
   insert_at_end = false,
   insert_at_start = false,
   maximum_padding = 1,
@@ -549,17 +674,6 @@ vim.g.bufferline = {
   no_name_title = nil,
 }
 
-function _tree_toggle()
-    if require'nvim-tree.view'.is_visible() then
-        require'bufferline.state'.set_offset(0)
-    else
-        require'bufferline.state'.set_offset(31, 'FileTree')
-    end
-    require'nvim-tree'.toggle()
-end
-vim.api.nvim_set_keymap('n', '<Leader>t', '<cmd>lua _tree_toggle()<CR>', {noremap = true, silent = true})
-
-local tree ={}
 
 -- Notify
 require('notify').setup(
