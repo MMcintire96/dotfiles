@@ -6,10 +6,11 @@ floating_modifier $mod
 
 for_window [class="^.*"] border pixel 0
 for_window [class="gui"] border pixel 0;
-gaps inner 18
+gaps inner 8
 gaps outer 0
-border_radius 0
+border_radius 6
 smart_borders on
+smart_gaps on
 hide_edge_borders smart_no_gaps
 
 exec --no-startup-id /home/michael/.screenlayout/layout.sh
@@ -221,8 +222,13 @@ client.urgent           $orange 			$orange			    $foreground2          $orange
 
 #load background items - using feh
 #exec_always --no-startup-id feh --bg-scale /home/michael/Downloads/dk.jpg
-exec_always --no-startup-id feh --bg-scale /home/michael/Pictures/mojave-night.jpg
+#exec_always --no-startup-id feh --bg-scale /home/michael/Pictures/mojave-night.jpg
+exec_always --no-startup-id feh --bg-scale /home/michael/Pictures/1776157.webp
+#exec_always --no-startup-id feh --bg-scale /home/michael/Pictures/1228050.webp
+#exec_always --no-startup-id feh --bg-tile /home/michael/Pictures/gross.jpeg
 
+#dunst
+exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 
 #conkcy
 #exec_always conky --config=/home/michael/.config/i3/conky.conf
@@ -238,14 +244,19 @@ bindsym $mod+g exec google-chrome-stable
 #start on login
 #exec urxvt
 #exec chromium
+exec alacritty
 exec spotify
 exec discord
+#exec ~/bluebubbles/bluebubbles_app
+exec easyeffects
+#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 #for_window [class="URxvt"] move to workspace $workspace1
-for_window [class="Spotify"] move to workspace $workspace3
 for_window [class="discord"] move to workspace $workspace2
+for_window [class="Spotify"] move to workspace $workspace3
+#for_window [class="Bluebubbles_app"] move to workspace $workspace4
 for_window [class="obs"] move to workspace $workspace7
-for_window [class="Firefox"] move to workspace $workspace6
 for_window [class="imgui"] floating enable
+for_window [class="easyeffects"] move to workspace $workspace7
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% #decrease sound volume
