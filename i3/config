@@ -254,7 +254,7 @@ exec easyeffects
 for_window [class="discord"] move to workspace $workspace2
 for_window [class="Spotify"] move to workspace $workspace3
 #for_window [class="Bluebubbles_app"] move to workspace $workspace4
-for_window [class="obs"] move to workspace $workspace7
+#for_window [class="obs"] move to workspace $workspace7
 for_window [class="imgui"] floating enable
 for_window [class="easyeffects"] move to workspace $workspace7
 
