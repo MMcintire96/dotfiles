@@ -1,12 +1,32 @@
+
+vim.keymap.set('n', '<leader>xx', "<cmd>source %<CR>" )
+
 require('Comment').setup()
 require('neoscroll').setup()
+
+
+-- DAP
+local dap = require('dap')
+require("dapui").setup()
+require('dap-go').setup()
+vim.keymap.set('n', '<leader>dap', '<cmd>lua require("dapui").toggle()<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>dc', '<cmd>lua require("dap").continue()<CR>')
+vim.keymap.set('n', '<leader>dso', '<cmd>lua require("dap").step_over()<CR>')
+vim.keymap.set('n', '<leader>dsi', '<cmd>lua require("dap").set_into()<CR>')
+vim.keymap.set('n', '<leader>dsO', '<cmd>lua require("dap").step_out()<CR>')
+vim.keymap.set('n', '<leader>db', '<cmd>lua require("dap").toggle_breakpoint()<CR>')
+vim.keymap.set('n', '<leader>dB', "<cmd>lua require('dap').set_breakpoint(vim.fn.inpint('Breakpoint Condition: ')<CR>" )
 
 
 -- Incline
 require('incline').setup()
 
--- Gitsings
 require('gitsigns').setup()
+
+local home = vim.fn.expand("$HOME")
+require("chatgpt").setup({
+    api_key_cmd = "gpg --passphrase 1 --decrypt " .. home .. "/secrets/chatgpt.secret.txt.gpg.gpg"
+})
 
 -- Markdown Preview
 require('peek').setup({
@@ -38,7 +58,7 @@ require("mason-lspconfig").setup()
 -- OneDark
 require('onedark').setup({
   style = 'dark', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-  transparent = false,  -- Show/hide background
+  transparent = true,  -- Show/hide background
   term_colors = true, -- Change terminal color as per the selected theme style
   ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
   cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
@@ -71,7 +91,7 @@ require('onedark').setup({
 require('lualine').setup({
     options = {
     icons_enabled = true,
-    theme = 'onedark',
+    theme = 'auto',
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {},
@@ -199,11 +219,17 @@ require('goto-preview').setup {
 
 -- lsp
 local lspconfig = require 'lspconfig'
-local lsp_installer = require("nvim-lsp-installer")
+local servers = { 'tsserver', 'gopls', 'angularls', 'pyright', 'solargraph'}
+lspconfig.pyright.setup {}
+lspconfig.tsserver.setup {}
+lspconfig.angularls.setup {}
+lspconfig.solargraph.setup {}
+lspconfig.gopls.setup {}
+--[[ local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
     local opts = {}
     server:setup(opts)
-end)
+end) ]]
 
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
@@ -385,7 +411,7 @@ require("telescope").load_extension "file_browser"
 
 -- treesitter
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"python",  "typescript", "lua", "ruby"},
+  ensure_installed = {"python",  "typescript", "lua",},
   sync_install = false,
   ignore_install = {},
   highlight = {
@@ -443,6 +469,7 @@ require("trouble").setup{
     use_lsp_diagnostic_signs = false
 }
 
+
 function _tree_toggle()
     if require'nvim-tree.view'.is_visible() then
         require'barbar.api'.set_offset(0)
@@ -455,9 +482,9 @@ local tree ={}
 vim.api.nvim_set_keymap('n', '<Leader>t', '<cmd>lua _tree_toggle()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>t', '<cmd>NvimTreeToggle<CR>', {noremap = true, silent = true})
 -- nvim-tree
-local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+-- local tree_cb = require('nvim-tree.config').nvim_tree_callback
 -- default mappings
-local function on_attach(bufnr)
+local function my_on_attach(bufnr)
   local api = require('nvim-tree.api')
 
   local function opts(desc)
@@ -503,8 +530,8 @@ local function on_attach(bufnr)
 
 end
 
-require'nvim-tree'.setup {
-  on_attach =   on_attach,
+require('nvim-tree').setup({
+  on_attach =   my_on_attach,
   disable_netrw       = true,
   hijack_netrw        = true,
   open_on_tab         = false,
@@ -559,13 +586,12 @@ require'nvim-tree'.setup {
   },
   view = {
     width = 30,
-    hide_root_folder = false,
     side = 'left',
     preserve_window_proportions = false,
     signcolumn = "yes",
-    mappings = {
+    --[[ mappings = {
       custom_only = false,
-    },
+    }, ]]
     number = false,
     relativenumber = false
   },
@@ -573,7 +599,8 @@ require'nvim-tree'.setup {
     cmd = "trash",
     require_confirm = true
   }
-}
+})
+
 
 
 require'barbar'.setup{
@@ -610,10 +637,11 @@ require'barbar'.setup{
       -- Requires `nvim-web-devicons` if `true`
       enabled = true,
     },
-    separator = {left = '▎', right = ''},
+--[[     separator = {left = '▎', right = ''}, ]]
+    separator = {left = '', right = ''},
 
     -- If true, add an additional separator at the end of the buffer list
-    separator_at_end = true,
+    separator_at_end = false,
 
     -- Configure the icons on the bufferline when modified or pinned.
     -- Supports all the base icon options.
@@ -626,7 +654,7 @@ require'barbar'.setup{
     -- Configure the icons on the bufferline based on the visibility of a buffer.
     -- Supports all the base icon options, plus `modified` and `pinned`.
     alternate = {filetype = {enabled = false}},
-    current = {buffer_index = true},
+    current = {buffer_index = false},
     inactive = {button = '×'},
     visible = {modified = {buffer_number = false}},
   },

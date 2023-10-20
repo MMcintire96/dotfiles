@@ -10,6 +10,7 @@ Plug('ryanoasis/vim-devicons')
 Plug('preservim/vimux')
 Plug('voldikss/vim-floaterm')
 -- Plug('airblade/vim-gitgutter')
+Plug('nordtheme/vim')
 Plug('lewis6991/gitsigns.nvim') 
 Plug('fatih/vim-go', { ['do'] = ':GoUpdateBinaries' })
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
@@ -29,7 +30,8 @@ Plug('hrsh7th/cmp-cmdline')
 Plug('onsails/lspkind-nvim')
 Plug('folke/trouble.nvim')
 Plug('rmagatti/goto-preview')
-Plug('kyazdani42/nvim-tree.lua')
+Plug('nvim-tree/nvim-tree.lua')
+-- Plug('kyazdani42/nvim-tree.lua')
 Plug('karb94/neoscroll.nvim')
 Plug('preservim/tagbar')
 Plug('rhysd/git-messenger.vim')
@@ -40,7 +42,7 @@ Plug('startup-nvim/startup.nvim')
 
 Plug('untitled-ai/jupyter_ascending.vim')
 
-Plug('andweeb/presence.nvim')
+-- Plug('andweeb/presence.nvim')
 Plug('numToStr/Comment.nvim')
 Plug('rcarriga/nvim-notify')
 
@@ -52,6 +54,17 @@ Plug('toppair/peek.nvim', {['do'] = 'deno task --quiet build:fast' })
 Plug('iftheshoefritz/solargraph-rails')
 Plug('williamboman/mason.nvim', {['do'] = ':MasonUpdate'})
 Plug('williamboman/mason-lspconfig.nvim')
+Plug('catppuccin/nvim', { ['as'] = 'catppuccin' })
+Plug('ellisonleao/gruvbox.nvim')
+Plug('projekt0n/github-nvim-theme')
+
+
+Plug('mfussenegger/nvim-dap')
+Plug('rcarriga/nvim-dap-ui')
+Plug('leoluz/nvim-dap-go')
+
+Plug('jackMort/ChatGPT.nvim')
+Plug('MunifTanjim/nui.nvim')
 
 
 -- Custom Plugins
