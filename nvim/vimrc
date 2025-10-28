@@ -11,7 +11,7 @@ set secure
 set wildmode=longest:full,full
 set mouse+=a
 " set clipboard=unnamedplus
-set pastetoggle=<F2>
+" set pastetoggle=<F2>
 set splitbelow
 set splitright
 set tabstop=4

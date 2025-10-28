@@ -3,30 +3,8 @@ vim.keymap.set('n', '<leader>xx', "<cmd>source %<CR>" )
 
 require('Comment').setup()
 require('neoscroll').setup()
-
-
--- DAP
-local dap = require('dap')
-require("dapui").setup()
-require('dap-go').setup()
-vim.keymap.set('n', '<leader>dap', '<cmd>lua require("dapui").toggle()<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>dc', '<cmd>lua require("dap").continue()<CR>')
-vim.keymap.set('n', '<leader>dso', '<cmd>lua require("dap").step_over()<CR>')
-vim.keymap.set('n', '<leader>dsi', '<cmd>lua require("dap").set_into()<CR>')
-vim.keymap.set('n', '<leader>dsO', '<cmd>lua require("dap").step_out()<CR>')
-vim.keymap.set('n', '<leader>db', '<cmd>lua require("dap").toggle_breakpoint()<CR>')
-vim.keymap.set('n', '<leader>dB', "<cmd>lua require('dap').set_breakpoint(vim.fn.inpint('Breakpoint Condition: ')<CR>" )
-
-
--- Incline
 require('incline').setup()
-
 require('gitsigns').setup()
-
-local home = vim.fn.expand("$HOME")
-require("chatgpt").setup({
-    api_key_cmd = "gpg --passphrase 1 --decrypt " .. home .. "/secrets/chatgpt.secret.txt.gpg.gpg"
-})
 
 -- Markdown Preview
 require('peek').setup({
@@ -217,25 +195,7 @@ require('goto-preview').setup {
 }
 
 
--- lsp
-local lspconfig = require 'lspconfig'
-local servers = { 'tsserver', 'gopls', 'angularls', 'pyright', 'solargraph'}
-lspconfig.pyright.setup {}
-lspconfig.tsserver.setup {}
-lspconfig.angularls.setup {}
-lspconfig.solargraph.setup {}
-lspconfig.gopls.setup {}
---[[ local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.on_server_ready(function(server)
-    local opts = {}
-    server:setup(opts)
-end) ]]
 
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
 vim.api.nvim_set_keymap('n', '<leader>vv', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
 vim.diagnostic.config({
@@ -269,7 +229,7 @@ local on_attach = function(_, bufnr)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
   vim.keymap.set('n', '<leader>so', require('telescope.builtin').lsp_document_symbols, opts)
-  vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
+  --- vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -278,15 +238,15 @@ capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'tsserver', 'gopls', 'angularls', 'pyright', 'solargraph'}
+local servers = { 'ts_ls', 'gopls', 'angularls', 'pyright', 'solargraph'}
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  vim.lsp.config(lsp, {
     on_attach = on_attach,
     capabilities = capabilities,
     flags = {
       debounce_text_changes = 150,
     },
-  }
+  })
 end
 
 -- nvim cmp / lspkind
@@ -414,59 +374,14 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = {"python",  "typescript", "lua",},
   sync_install = false,
   ignore_install = {},
+  indent = {
+    enable = true,
+  },
   highlight = {
     enable = true,
     disable = {'html'},
     additional_vim_regex_highlighting = false,
   },
-}
-
--- trouble
-require("trouble").setup{
-    position = "bottom", -- position of the list can be: bottom, top, left, right
-    height = 10, -- height of the trouble list when position is top or bottom
-    width = 50, -- width of the list when position is left or right
-    icons = true, -- use devicons for filenames
-    mode = "workspace_diagnostics", -- "lsp_workspace_diagnostics", "lsp_document_diagnostics", "quickfix", "lsp_references", "loclist"
-    fold_open = "", -- icon used for open folds
-    fold_closed = "", -- icon used for closed folds
-    group = true, -- group results by file
-    padding = true, -- add an extra new line on top of the list
-    action_keys = { -- key mappings for actions in the trouble list
-        -- map to {} to remove a mapping, for example:
-        -- close = {},
-        close = "q", -- close the list
-        cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
-        refresh = "r", -- manually refresh
-        jump = {"<cr>", "<tab>"}, -- jump to the diagnostic or open / close folds
-        open_split = { "<c-x>" }, -- open buffer in new split
-        open_vsplit = { "<c-v>" }, -- open buffer in new vsplit
-        open_tab = { "<c-t>" }, -- open buffer in new tab
-        jump_close = {"o"}, -- jump to the diagnostic and close the list
-        toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
-        toggle_preview = "P", -- toggle auto_preview
-        hover = "K", -- opens a small popup with the full multiline message
-        preview = "p", -- preview the diagnostic location
-        close_folds = {"zM", "zm"}, -- close all folds
-        open_folds = {"zR", "zr"}, -- open all folds
-        toggle_fold = {"zA", "za"}, -- toggle fold of current file
-        previous = "k", -- preview item
-        next = "j" -- next item
-    },
-    indent_lines = true, -- add an indent guide below the fold icons
-    auto_open = false, -- automatically open the list when you have diagnostics
-    auto_preview = false, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
-    auto_fold = false, -- automatically fold a file trouble list at creation
-    auto_jump = {"lsp_definitions"}, -- for the given modes, automatically jump if there is only a single result
-    signs = {
-        -- icons / text used for a diagnostic
-        error = "",
-        warning = "",
-        hint = "",
-        information = "",
-        other = "﫠"
-    },
-    use_lsp_diagnostic_signs = false
 }
 
 
@@ -722,4 +637,38 @@ require('notify').setup(
       timeout = 5000
     }
 )
+
+
+
+require('codex').setup({
+  -- If you want a split: use an integer cell count
+  split = "horizontal",
+  size = 30,  -- 30 columns when vertical
+
+  -- If you want a float, configure here; omit row/col to center
+  float = {
+    width = 0.6,   -- 60% of screen
+    height = 0.6,  -- 60% of screen
+    border = "rounded",
+    title = "Codex",
+    -- row = nil, col = nil,  -- omit these entirely
+  },
+
+  codex_cmd = { "codex" },
+  focus_after_send = false,
+  log_level = "warn",
+  autostart = false,
+})
+
+-- Use string <cmd> mappings to defer require until press-time
+vim.keymap.set("n", "<leader>cc",
+  "<cmd>lua require('codex').toggle()<CR>",
+  { desc = "Codex: Toggle", silent = true }
+)
+
+vim.keymap.set("x", "<leader>cs",
+  "<cmd>lua require('codex').actions.send_selection()<CR>",
+  { desc = "Codex: Send selection", silent = true }
+)
+
 
