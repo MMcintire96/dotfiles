@@ -1,63 +1,92 @@
-local Plug = vim.fn['plug#']
+require("lazy").setup({
+  -- Basic utilities
+  'tpope/vim-surround',
+  'pangloss/vim-javascript',
+  'ryanoasis/vim-devicons',
+  'preservim/vimux',
+  'voldikss/vim-floaterm',
 
-vim.call('plug#begin', '~/.config/nvim/plugged')
+  -- Themes
+  'nordtheme/vim',
+  'navarasu/onedark.nvim',
+  { 'catppuccin/nvim', name = 'catppuccin' },
 
+  -- Git
+  'lewis6991/gitsigns.nvim',
+  'f-person/git-blame.nvim',
 
-Plug('tpope/vim-surround')
+  -- Language support
+  { 'fatih/vim-go', build = ':GoUpdateBinaries' },
+  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
 
-Plug('pangloss/vim-javascript')
-Plug('ryanoasis/vim-devicons')
-Plug('preservim/vimux')
-Plug('voldikss/vim-floaterm')
--- Plug('airblade/vim-gitgutter')
-Plug('nordtheme/vim')
-Plug('lewis6991/gitsigns.nvim') 
-Plug('fatih/vim-go', { ['do'] = ':GoUpdateBinaries' })
-Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
-Plug('kyazdani42/nvim-web-devicons')
-Plug('neovim/nvim-lspconfig')
-Plug('williamboman/nvim-lsp-installer')
-Plug('nvim-lua/plenary.nvim')
-Plug('nvim-telescope/telescope.nvim')
-Plug('nvim-telescope/telescope-file-browser.nvim')
-Plug('hrsh7th/nvim-cmp')
-Plug('hrsh7th/cmp-vsnip')
-Plug('hrsh7th/vim-vsnip')
-Plug('hrsh7th/cmp-nvim-lsp')
-Plug('hrsh7th/cmp-buffer')
-Plug('hrsh7th/cmp-path')
-Plug('hrsh7th/cmp-cmdline')
-Plug('onsails/lspkind-nvim')
-Plug('rmagatti/goto-preview')
-Plug('nvim-tree/nvim-tree.lua')
---
-Plug('karb94/neoscroll.nvim')
-Plug('nvim-lualine/lualine.nvim')
-Plug('romgrk/barbar.nvim')
-Plug('b0o/incline.nvim')
-Plug('startup-nvim/startup.nvim')
+  -- Icons
+  'kyazdani42/nvim-web-devicons',
+  'nvim-tree/nvim-web-devicons',
 
+  -- LSP
+  'neovim/nvim-lspconfig',
+  'williamboman/nvim-lsp-installer',
+  { 'williamboman/mason.nvim', build = ':MasonUpdate' },
+  'williamboman/mason-lspconfig.nvim',
+  'iftheshoefritz/solargraph-rails',
 
--- Plug('andweeb/presence.nvim')
-Plug('numToStr/Comment.nvim')
-Plug('rcarriga/nvim-notify')
+  -- Telescope
+  'nvim-lua/plenary.nvim',
+  'nvim-telescope/telescope.nvim',
+  'nvim-telescope/telescope-file-browser.nvim',
 
-Plug('navarasu/onedark.nvim')
-Plug('toppair/peek.nvim', {['do'] = 'deno task --quiet build:fast' })
-Plug('iftheshoefritz/solargraph-rails')
-Plug('williamboman/mason.nvim', {['do'] = ':MasonUpdate'})
-Plug('williamboman/mason-lspconfig.nvim')
-Plug('catppuccin/nvim', { ['as'] = 'catppuccin' })
+  -- Completion
+  'hrsh7th/nvim-cmp',
+  'hrsh7th/cmp-vsnip',
+  'hrsh7th/vim-vsnip',
+  'hrsh7th/cmp-nvim-lsp',
+  'hrsh7th/cmp-buffer',
+  'hrsh7th/cmp-path',
+  'hrsh7th/cmp-cmdline',
+  'onsails/lspkind-nvim',
 
+  -- Navigation
+  'rmagatti/goto-preview',
+  'nvim-tree/nvim-tree.lua',
+  'karb94/neoscroll.nvim',
 
-Plug('folke/snacks.nvim')
+  -- UI
+  'nvim-lualine/lualine.nvim',
+  'b0o/incline.nvim',
+  'startup-nvim/startup.nvim',
+  'rcarriga/nvim-notify',
 
-Plug('rhart92/codex.nvim')
+  -- Utilities
+  'numToStr/Comment.nvim',
+  { 'toppair/peek.nvim', build = 'deno task --quiet build:fast' },
 
+  -- AI assistants
+  'zbirenbaum/copilot.lua',
+  'zbirenbaum/copilot-cmp',
+  'supermaven-inc/supermaven-nvim',
+  'folke/snacks.nvim',
+  'folke/sidekick.nvim',
 
-Plug('MunifTanjim/nui.nvim')
+  -- Markdown
+  'MeanderingProgrammer/render-markdown.nvim',
 
-Plug('nvim-neotest/nvim-nio')
-Plug('nvim-tree/nvim-web-devicons')
-
-vim.call('plug#end')
+  -- Dependencies
+  'MunifTanjim/nui.nvim',
+  'nvim-neotest/nvim-nio',
+}, {
+  -- Lazy.nvim configuration
+  ui = {
+    border = "rounded",
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
+})

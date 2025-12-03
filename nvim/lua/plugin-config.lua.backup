@@ -26,7 +26,6 @@ require('snacks').setup({
   },
 })
 
-
 -- Markdown Preview (peek)
 require('peek').setup({
   auto_load = true,
@@ -93,6 +92,28 @@ require('lualine').setup({
     lualine_b = { 'branch', 'diff', 'diagnostics' },
     lualine_c = {
       'filename',
+      -- 🤖 Sidekick / Copilot Status with better indicators
+      {
+        function()
+          return ""
+        end,
+        color = function()
+          local status = require("sidekick.status").get()
+          if status then
+            if status.kind == "Error" then
+              return { fg = vim.fn.synIDattr(vim.fn.hlID("DiagnosticError"), "fg") }
+            elseif status.busy then
+              return { fg = vim.fn.synIDattr(vim.fn.hlID("DiagnosticWarn"), "fg") }
+            else
+              return { fg = vim.fn.synIDattr(vim.fn.hlID("Special"), "fg") }
+            end
+          end
+        end,
+        cond = function()
+          local status = require("sidekick.status")
+          return status.get() ~= nil
+        end,
+      },
     },
     lualine_x = {
       -- 🤖 Claude Code Session Info
@@ -102,6 +123,20 @@ require('lualine').setup({
       'encoding',
       'fileformat',
       'filetype',
+      -- 🧰 CLI Session Indicator
+      {
+        function()
+          local cli_sessions = require("sidekick.status").cli()
+          local count = #cli_sessions
+          return " " .. (count > 1 and count or "")
+        end,
+        cond = function()
+          return #require("sidekick.status").cli() > 0
+        end,
+        color = function()
+          return { fg = vim.fn.synIDattr(vim.fn.hlID("Special"), "fg") }
+        end,
+      },
     },
     lualine_y = { 'progress' },
     lualine_z = { 'location' },
@@ -155,8 +190,8 @@ require('startup').setup({
       { "פּ File Tree", "NvimTreeToggle", "t" },
       { " Colorschemes", "Telescope colorscheme", "cs" },
       { " New File", "lua require'startup'.new_file()", "nf" },
-      { " Lazy Install", ":Lazy install", "p" },
-      { "ﮣ Lazy Update", ":Lazy update", "u" },
+      { " Plug Install", ":PlugInstall", "p" },
+      { "ﮣ Plug Update", ":PlugUpdate", "u" },
       { " Quit", ":q", "q" },
     },
     highlight = "String",
@@ -242,26 +277,6 @@ vim.api.nvim_create_user_command('CopilotCmpTest', function()
   cmp.complete()
 end, { desc = "Manually trigger completion menu" })
 
-
--- ===== Supermaven Setup =====
--- Supermaven provides fast inline ghost text completions (same tech as Cursor Tab)
--- Note: We disable default keymaps and integrate Tab with Sidekick NES below
-require('supermaven-nvim').setup({
-  keymaps = {
-    accept_suggestion = "<C-l>",  -- Manual accept (Tab is integrated below)
-    clear_suggestion = "<C-]>",
-    accept_word = "<C-j>",
-  },
-  ignore_filetypes = { "gitcommit", "gitrebase" },
-  color = {
-    suggestion_color = "#808080",
-    cterm = 244,
-  },
-  log_level = "info",
-  disable_inline_completion = false, -- Enable inline ghost text
-  disable_keymaps = false
-})
-
 -- ===== LSP (lspconfig + cmp) =====
 local on_attach = function(_, bufnr)
   local opts = { buffer = bufnr }
@@ -313,24 +328,18 @@ local source_mapping = {
   nvim_lua = "[Lua]",
   path = "[Path]",
   copilot = "[Copilot]",
-  supermaven = "[Supermaven]",
 }
 
--- Initialize lspkind with Copilot and Supermaven symbols
+-- Initialize lspkind with Copilot symbol
 lspkind.init({
   symbol_map = {
     Copilot = "⚡",
-    Supermaven = "🚀",
   },
 })
 
 -- Set Copilot highlight colors - GitHub Copilot green with better styling
 vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644", bold = true })
 vim.api.nvim_set_hl(0, "CmpItemMenuCopilot", { fg = "#6CC644", italic = true })
-
--- Set Supermaven highlight colors - Orange/gold for distinction
-vim.api.nvim_set_hl(0, "CmpItemKindSupermaven", { fg = "#FFA500", bold = true })
-vim.api.nvim_set_hl(0, "CmpItemMenuSupermaven", { fg = "#FFA500", italic = true })
 
 -- Tell Copilot we’re not using its default <Tab>
 vim.g.copilot_no_tab_map = true
@@ -352,8 +361,7 @@ cmp.setup({
     }),
   },
   sources = cmp.config.sources({
-    { name = 'supermaven' }, -- Supermaven fast completions (Cursor Tab tech)
-    { name = 'copilot' }, -- No keyword_length for AI sources so they can suggest on empty lines
+    { name = 'copilot' }, -- No keyword_length for copilot so it can suggest on empty lines
     { name = 'nvim_lsp', keyword_length = 2 },
     { name = 'vsnip',    keyword_length = 2 },
   }, {
@@ -382,18 +390,10 @@ cmp.setup({
       maxwidth = 60,
       symbol_map = {
         Copilot = "⚡",
-        Supermaven = "🚀",
       },
       before = function(entry, vim_item)
-        -- Special handling for AI completion sources
-        if entry.source.name == "supermaven" then
-          vim_item.menu = "[Supermaven]"
-          vim_item.kind = "Supermaven"
-          -- Truncate long suggestions for better display
-          if vim_item.abbr and #vim_item.abbr > 60 then
-            vim_item.abbr = vim_item.abbr:sub(1, 57) .. "..."
-          end
-        elseif entry.source.name == "copilot" then
+        -- Special handling for Copilot entries
+        if entry.source.name == "copilot" then
           vim_item.menu = "[Copilot]"
           vim_item.kind = "Copilot"
           -- Truncate long copilot suggestions for better display
@@ -464,34 +464,20 @@ cmp.setup.cmdline(':', {
 
 -- Telescope
 local telescope_actions = require("telescope.actions")
-local sidekick_telescope = require("sidekick.cli.picker.telescope")
-
 require("telescope").setup{
   extensions = {
     file_browser = {
       theme = "ivy",
       mappings = {
-        i = {
-          ["<C-a>"] = telescope_actions.select_vertical,
-          ["<C-s>"] = sidekick_telescope.send,
-        },
-        n = {
-          ["<C-a>"] = telescope_actions.select_vertical,
-          ["<C-s>"] = sidekick_telescope.send,
-        },
+        i = { ["<C-a>"] = telescope_actions.select_vertical },
+        n = { ["<C-a>"] = telescope_actions.select_vertical },
       },
     },
   },
   defaults = {
     mappings = {
-      i = {
-        ["<C-a>"] = telescope_actions.select_vertical,
-        ["<C-s>"] = sidekick_telescope.send,
-      },
-      n = {
-        ["<C-a>"] = telescope_actions.select_vertical,
-        ["<C-s>"] = sidekick_telescope.send,
-      },
+      i = { ["<C-a>"] = telescope_actions.select_vertical },
+      n = { ["<C-a>"] = telescope_actions.select_vertical },
     },
   },
 }
@@ -615,6 +601,42 @@ require('notify').setup({
   timeout = 5000,
 })
 
+-- ===== Claude Code Notifications =====
+-- DISABLED: Using Claude's built-in hooks instead (see ~/.claude/settings.json)
+-- This prevents duplicate notifications
+--[[
+require('run-notify').setup({
+  enabled = true,
+  notifications = {
+    question = { enabled = true, icon = "🤔", urgency = "normal" },
+    completion = { enabled = true, icon = "✅", urgency = "low" },
+    tool_approval = { enabled = true, icon = "⚠️", urgency = "critical" },
+    error = { enabled = false, icon = "❌", urgency = "critical" },
+  },
+})
+
+vim.api.nvim_create_user_command('ClaudeNotifyEnable', function()
+  require('run-notify').enable()
+end, { desc = 'Enable Claude Code system notifications' })
+
+vim.api.nvim_create_user_command('ClaudeNotifyDisable', function()
+  require('run-notify').disable()
+end, { desc = 'Disable Claude Code system notifications' })
+
+vim.api.nvim_create_user_command('ClaudeNotifyToggle', function(opts)
+  require('run-notify').toggle(opts.args)
+end, {
+  nargs = 1,
+  complete = function()
+    return { 'question', 'completion', 'tool_approval', 'error' }
+  end,
+  desc = 'Toggle specific Claude notification type'
+})
+
+vim.api.nvim_create_user_command('ClaudeNotifyTest', function()
+  require('run-notify').test()
+end, { desc = 'Test Claude notification detection on current buffer' })
+--]]
 
 -- ===== Sidekick + keymaps =====
 require('sidekick').setup({
@@ -642,8 +664,9 @@ require('sidekick').setup({
       enabled = true,
     },
     tools = {
+      cursor = { cmd = { "cursor-agent" } },
       claude = {
-        cmd = { vim.fn.expand("~/.config/nvim/scripts/claude-wrapper.sh"), "--dangerously-skip-permissions" },
+        cmd = { vim.fn.expand("~/.config/nvim/scripts/claude-wrapper.sh") },
       },
     },
   },
@@ -716,37 +739,24 @@ vim.api.nvim_exec_autocmds("ColorScheme", { group = "SidekickColors" })
 local map = vim.keymap.set
 local cli = require("sidekick.cli")
 
--- Integrated Tab: Supermaven (fast autocomplete) → Sidekick NES (diffs) → fallback
--- This mirrors Cursor's UX: fast completions + smart refactoring suggestions
+-- Sidekick NES (Next Edit Suggestions) accept/decline workflow
+-- Similar to Cursor's editor experience
 map({ "n", "i" }, "<Tab>", function()
   local function termcodes(str) return vim.api.nvim_replace_termcodes(str, true, false, true) end
-
-  -- Don't interfere with prompt buffers
   if vim.bo.buftype == 'prompt' then
     return "<Tab>"
   end
-
-  -- Priority 1: Supermaven ghost text suggestion (fast autocomplete like Cursor Tab)
-  local ok_sm, suggestion_api = pcall(require, "supermaven-nvim.completion_preview")
-  if ok_sm and suggestion_api.has_suggestion() then
-    suggestion_api.on_accept_suggestion()
+  local ok, sk = pcall(require, "sidekick")
+  if ok and sk.nes_jump_or_apply and sk.nes_jump_or_apply() then
     return ""
   end
-
-  -- Priority 2: Sidekick NES diff suggestion (complex refactoring)
-  local ok_sk, sk = pcall(require, "sidekick")
-  if ok_sk and sk.nes_jump_or_apply and sk.nes_jump_or_apply() then
-    return ""
-  end
-
-  -- Priority 3: Fallback to normal Tab behavior
   if vim.api.nvim_get_mode().mode == "i" then
     return "<Tab>"
   else
     vim.api.nvim_feedkeys(termcodes(">>"), "n", false)
     return ""
   end
-end, { expr = true, silent = true, desc = "Supermaven → Sidekick NES → Tab fallback" })
+end, { expr = true, silent = true, desc = "Sidekick Next Edit Suggestion or <Tab> fallback" })
 
 -- Accept suggestion (similar to Cursor's Tab)
 map({ "n", "i" }, "<C-y>", function()
@@ -785,37 +795,25 @@ map("n", "<leader>aa", function() cli.toggle() end, { silent = true, desc = "Sid
 map("n", "<leader>as", function() cli.select() end, { silent = true, desc = "Select CLI" })
 map("n", "<leader>ad", function() cli.close() end, { silent = true, desc = "Detach a CLI Session" })
 map({ "n", "x" }, "<leader>at", function() cli.send({ msg = "{this}" }) end, { silent = true, desc = "Send This" })
-map({ "n", "x" }, "<C-l>", function() cli.send({ msg = "{this}" }) end, { silent = true, desc = "Send This" })
 map("n", "<leader>af", function() cli.send({ msg = "{file}" }) end, { silent = true, desc = "Send File" })
 map("x", "<leader>av", function() cli.send({ msg = "{selection}" }) end, { silent = true, desc = "Send Visual Selection" })
+map("x", "<C-l>", function() cli.send({ msg = "{selection}" }) end, { silent = true, desc = "Send Visual Selection to Sidekick" })
 map({ "n", "x" }, "<leader>ap", function() cli.prompt() end, { silent = true, desc = "Sidekick Select Prompt" })
-map("n", "<leader>ac", function() cli.toggle({ name = "claude", focus = true }) end, { silent = true, desc = "Sidekick Toggle Claude" })
+map("n", "<leader>ac", function() cli.toggle({ name = "cursor", focus = true }) end, { silent = true, desc = "Sidekick Toggle Cursor" })
 
 -- Additional Cursor-like keymaps for AI assistance
-map("n", "<leader>ai", function()
-  local ok, session = pcall(function() return cli.get() end)
-  if ok and session then
-    -- Sidekick session exists, just send context
-    cli.send({ msg = "{this}" })
-  else
-    -- Open sidekick and send context
-    cli.toggle({ name = "claude", focus = true })
-    vim.defer_fn(function()
-      cli.send({ msg = "{this}" })
-    end, 100)
-  end
+map("n", "<leader>ai", function() 
+  cli.toggle({ name = "claude", focus = true })
+  -- Send current context
+  cli.send({ msg = "{this}" })
 end, { silent = true, desc = "AI Chat with current context" })
 
-map("x", "<leader>ai", function()
-  local ok, session = pcall(function() return cli.get() end)
-  if ok and session then
-    -- Sidekick session exists, just send selection
-    cli.send({ msg = "{this}" })
-  else
-    -- Open sidekick and send selection
-    cli.toggle({ name = "claude", focus = true })
-    vim.defer_fn(function()
-      cli.send({ msg = "{this}" })
-    end, 100)
-  end
+map("x", "<leader>ai", function() 
+  cli.toggle({ name = "claude", focus = true })
+  -- Send visual selection
+  cli.send({ msg = "{selection}" })
 end, { silent = true, desc = "AI Chat with selection" })
+
+
+--require('render-markdown').setup()
+

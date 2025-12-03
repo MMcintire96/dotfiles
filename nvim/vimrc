@@ -116,11 +116,6 @@ nnoremap <leader>n :NvimTreeFindFile<CR>
 " Floatterm
 let g:floaterm_keymap_new = '<Leader>ft'
 
-" Tagbar
-nnoremap <leader>a :TagbarToggle<CR>
-
-" Trouble
-nnoremap <leader>e :TroubleToggle<CR>
 
 " Bar Bar
 nnoremap <leader>[ :BufferPrevious<CR>
